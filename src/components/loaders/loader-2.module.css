@@ -1,0 +1,93 @@
+.tableSkeleton {
+	width: 100%;
+	border-radius: 8px;
+	overflow: hidden;
+	background: #ffffff;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tableHeader {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+	gap: 1px;
+	background: #f8f9fa;
+	border-bottom: 2px solid #e9ecef;
+}
+
+.headerCell {
+	padding: 16px 12px;
+	background: #ffffff;
+	display: flex;
+	align-items: center;
+}
+
+.tableBody {
+	display: flex;
+	flex-direction: column;
+}
+
+.tableRow {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+	gap: 1px;
+	border-bottom: 1px solid #f1f3f4;
+	transition: background-color 0.2s ease;
+}
+
+.tableRow:hover {
+	background-color: #f8f9fa;
+}
+
+.tableCell {
+	padding: 20px;
+	background: #ffffff;
+	display: flex;
+	align-items: center;
+}
+
+.skeletonLine {
+	width: 100%;
+	height: 20px;
+	background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+	background-size: 200% 100%;
+	border-radius: 4px;
+	animation: shimmer 1.5s infinite;
+}
+
+/* Shimmer animation */
+@keyframes shimmer {
+	0% {
+		background-position: -200% 0;
+	}
+	100% {
+		background-position: 200% 0;
+	}
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+	.tableHeader,
+	.tableRow {
+		grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+	}
+
+	.headerCell,
+	.tableCell {
+		padding: 10px 8px;
+	}
+
+	.skeletonLine {
+		height: 14px;
+	}
+}
+
+@media (max-width: 480px) {
+	.tableHeader,
+	.tableRow {
+		grid-template-columns: 1fr;
+	}
+
+	.tableSkeleton {
+		border-radius: 4px;
+	}
+}
