@@ -1,5 +1,6 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 
 export default function LoadJsProvider({
@@ -7,6 +8,7 @@ export default function LoadJsProvider({
 }: {
 	children: React.ReactNode;
 }) {
+	const pathname = usePathname();
 	useEffect(() => {
 		const scripts = [
 			'assets/js/jquery-3.7.1.min.js',
@@ -47,7 +49,7 @@ export default function LoadJsProvider({
 		};
 
 		loadAllScripts();
-	}, []);
+	}, [pathname]);
 
 	return children;
 }

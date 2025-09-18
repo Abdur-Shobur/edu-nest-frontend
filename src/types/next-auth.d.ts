@@ -1,8 +1,9 @@
+import { ILoginResponse } from '@/store/features/auth';
 import 'next-auth/jwt';
 import { DefaultJWT } from 'next-auth/jwt';
-import { UserType } from './all-types';
-interface NewUser extends UserType {}
 
+// Align with the user shape returned by the backend
+export type UserType = ILoginResponse['user'];
 declare module 'next-auth' {
 	/**
 	 * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context

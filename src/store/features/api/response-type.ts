@@ -3,6 +3,7 @@ export type ResponseType<T> = {
 	message: string;
 	data: T;
 	statusCode: number;
+	meta: any;
 };
 
 export interface IPaginatedResponse<T> {

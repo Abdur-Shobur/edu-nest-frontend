@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Header1() {
 	return (
 		<header className="header">
@@ -57,9 +59,9 @@ export default function Header1() {
 			<div className="main-navigation">
 				<nav className="navbar navbar-expand-lg">
 					<div className="container position-relative">
-						<a className="navbar-brand" href="index.html">
+						<Link className="navbar-brand" href="/">
 							<img src="assets/img/logo/logo.png" alt="logo" />
-						</a>
+						</Link>
 						<div className="mobile-menu-right">
 							<div className="search-btn">
 								<button
@@ -613,9 +615,9 @@ export default function Header1() {
 									</ul>
 								</li>
 								<li className="nav-item">
-									<a className="nav-link" href="contact.html">
-										Contact
-									</a>
+									<Link className="nav-link" href="/auth">
+										Login
+									</Link>
 								</li>
 							</ul>
 							<div className="nav-right">

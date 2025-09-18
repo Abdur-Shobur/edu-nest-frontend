@@ -1,13 +1,8 @@
+import { ILoginResponse } from '@/store/features/auth';
 import NextAuth, { User as NextAuthUser } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-type UserType = {
-	email: string;
-	name: string;
-	phone: string;
-	status: string;
-	role: 'admin' | 'user';
-};
+type UserType = ILoginResponse['user'];
 // Define the extended user type
 interface CustomUser extends NextAuthUser {
 	accessToken?: string;
@@ -25,13 +20,13 @@ const handler = NextAuth({
 
 			async authorize(credentials) {
 				if (credentials?.token) {
-					const parsedToken = JSON.parse(credentials.token);
+					const parsedToken: ILoginResponse = JSON.parse(credentials.token);
 
 					return {
-						id: parsedToken.data.user.email,
-						accessToken: parsedToken.data.accessToken,
-						refreshToken: '', // Set this if you have a refresh token
-						user: parsedToken.data.user,
+						id: parsedToken.user.email,
+						accessToken: parsedToken.accessToken,
+						refreshToken: parsedToken.refreshToken,
+						user: parsedToken.user,
 					};
 				}
 				return null;
