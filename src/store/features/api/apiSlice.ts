@@ -16,7 +16,11 @@ const baseQuery = fetchBaseQuery({
 	},
 });
 
-export const TAG_TYPES = ['USER'] as const;
+export const TAG_TYPES = [
+	'USER',
+	'ROLE_DEV_CATEGORY',
+	'ROLE_DEV_SUB_CATEGORY',
+] as const;
 
 export const apiSlice = createApi({
 	reducerPath: 'api',
