@@ -9,7 +9,7 @@ const api = apiSlice.injectEndpoints({
 		 **/
 		DevCategoryStore: builder.mutation<
 			ResponseType<IDevCategory>,
-			IDevCategory
+			Partial<IDevCategory>
 		>({
 			query: (data) => {
 				return {
@@ -56,13 +56,11 @@ const api = apiSlice.injectEndpoints({
 		 * Dev Category
 		 **/
 		DevCategory: builder.query<
-			IPaginatedResponse<IDevCategory[]>,
+			IPaginatedResponse<IDevCategory>,
 			{ status?: string; page?: number; limit?: number }
 		>({
-			query: (data) => ({
-				url: `/role-dev-category${data.status ? `?status=${data.status}` : ''}${
-					data.page ? `&page=${data.page}` : ''
-				}${data.limit ? `&limit=${data.limit}` : ''}`,
+			query: ({ page = 1, limit = 10, status = '' }) => ({
+				url: `/role-dev-category?status=${status}&page=${page}&limit=${limit}`,
 			}),
 			providesTags: () => ['ROLE_DEV_CATEGORY'],
 		}),

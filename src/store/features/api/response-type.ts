@@ -7,10 +7,8 @@ export type ResponseType<T> = {
 };
 
 export interface IPaginatedResponse<T> {
-	data: {
-		data: T[];
-		meta: IMeta;
-	};
+	data: T[];
+	meta: IMeta;
 	status: boolean;
 	message: string;
 	statusCode: number;
@@ -23,6 +21,11 @@ export interface IMeta {
 	itemsPerPage: number;
 	hasNextPage: boolean;
 	hasPreviousPage: boolean;
+	limit: number;
+	page: number;
+	nextPage: number;
+	total: number;
+	pageCount: number;
 }
 
 export interface IErrorResponse {

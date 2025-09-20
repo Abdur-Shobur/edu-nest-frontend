@@ -23,6 +23,8 @@ import { Button } from '@/components/ui/button';
 import { Ellipsis, LoaderCircle } from 'lucide-react';
 import Link from 'next/link';
 import { ApiDeleteDropdownHandler } from '../../api/api-delete-dropdown-handler';
+import { DescriptionModal } from './description-modal';
+import { StatusHandler } from './status-handler';
 
 export function DevCategoryTable({ data }: { data: any }) {
 	const coupons = [
@@ -49,25 +51,25 @@ export function DevCategoryTable({ data }: { data: any }) {
 						Sr.
 					</TableHead>
 					<TableHead className="bg-stone-100 dark:bg-transparent">
-						Profile{' '}
+						Profile
 					</TableHead>
 					<TableHead className="bg-stone-100 dark:bg-transparent">
-						Name{' '}
+						Name
 					</TableHead>
 					<TableHead className="bg-stone-100 dark:bg-transparent">
-						Email{' '}
+						Email
 					</TableHead>
 					<TableHead className="bg-stone-100 dark:bg-transparent">
-						Number{' '}
+						Number
 					</TableHead>
 					<TableHead className="bg-stone-100 dark:bg-transparent">
-						Date{' '}
+						Date
 					</TableHead>
 					<TableHead className="bg-stone-100 dark:bg-transparent">
-						Status{' '}
+						Status
 					</TableHead>
 					<TableHead className="bg-stone-100 dark:bg-transparent">
-						Action{' '}
+						Action
 					</TableHead>
 				</TableRow>
 			</TableHeader>
@@ -145,6 +147,13 @@ const DropDownAction = ({ item }: { item: any }) => {
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end" className="w-56">
+				<DescriptionModal data={item} />
+				<StatusHandler
+					data={item}
+					status={item.status}
+					text={item.status}
+					icon={'Check'}
+				/>
 				<DropdownMenuSeparator />
 
 				{/* Delete   */}
