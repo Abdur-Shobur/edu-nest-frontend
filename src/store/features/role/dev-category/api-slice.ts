@@ -18,7 +18,7 @@ const api = apiSlice.injectEndpoints({
 					body: data,
 				};
 			},
-			invalidatesTags: ['ROLE_DEV_CATEGORY'],
+			invalidatesTags: ['ROLE_DEV_CATEGORY', 'ROLE'],
 		}),
 
 		/**
@@ -26,16 +26,17 @@ const api = apiSlice.injectEndpoints({
 		 **/
 		DevCategoryUpdate: builder.mutation<
 			ResponseType<IDevCategory>,
-			IDevCategory
+			Partial<IDevCategory>
 		>({
 			query: (data) => {
+				const { id, ...rest } = data;
 				return {
-					url: '/role-dev-category',
+					url: `/role-dev-category/${id}`,
 					method: 'PATCH',
-					body: data,
+					body: rest,
 				};
 			},
-			invalidatesTags: ['ROLE_DEV_CATEGORY'],
+			invalidatesTags: ['ROLE_DEV_CATEGORY', 'ROLE'],
 		}),
 
 		/**
@@ -45,11 +46,28 @@ const api = apiSlice.injectEndpoints({
 			ResponseType<IDevCategory>,
 			{ id: number }
 		>({
-			query: ({ id }) => ({
-				url: `/role-dev-category/${id}`,
-				method: 'DELETE',
+			query: ({ id }) => {
+				return {
+					url: `/role-dev-category/${id}`,
+					method: 'DELETE',
+				};
+			},
+			invalidatesTags: ['ROLE_DEV_CATEGORY', 'ROLE'],
+		}),
+
+		/**
+		 * Dev Category Status Update
+		 **/
+		DevCategoryStatus: builder.mutation<
+			ResponseType<IDevCategory>,
+			{ id: number; status: string }
+		>({
+			query: ({ id, status }) => ({
+				url: `/role-dev-category/status/${id}`,
+				method: 'PATCH',
+				body: { status },
 			}),
-			invalidatesTags: ['ROLE_DEV_CATEGORY'],
+			invalidatesTags: ['ROLE_DEV_CATEGORY', 'ROLE'],
 		}),
 
 		/**
@@ -57,11 +75,27 @@ const api = apiSlice.injectEndpoints({
 		 **/
 		DevCategory: builder.query<
 			IPaginatedResponse<IDevCategory>,
-			{ status?: string; page?: number; limit?: number }
+			{
+				status?: string;
+				page?: number;
+				limit?: number | 'all';
+				search?: string;
+			}
 		>({
-			query: ({ page = 1, limit = 10, status = '' }) => ({
-				url: `/role-dev-category?status=${status}&page=${page}&limit=${limit}`,
-			}),
+			query: ({ page = 1, limit = 10, status = '', search = '' }) => {
+				if (
+					status === 'active' ||
+					status === 'inactive' ||
+					status === 'trashed'
+				) {
+					status = status;
+				} else {
+					status = '';
+				}
+				return {
+					url: `/role-dev-category?status=${status}&page=${page}&limit=${limit}&search=${search}`,
+				};
+			},
 			providesTags: () => ['ROLE_DEV_CATEGORY'],
 		}),
 	}),
@@ -71,5 +105,6 @@ export const {
 	useDevCategoryStoreMutation,
 	useDevCategoryUpdateMutation,
 	useDevCategoryDeleteMutation,
+	useDevCategoryStatusMutation,
 	useDevCategoryQuery,
 } = api;

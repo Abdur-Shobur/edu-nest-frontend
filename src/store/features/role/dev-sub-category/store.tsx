@@ -16,6 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { Loader5 } from '@/components/loader';
 import { Button } from '@/components/ui/button';
 import {
 	Form,
@@ -34,9 +35,11 @@ import {
 	SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { alertConfirm, handleValidationError, toaster } from '@/lib';
-import { useDevCategoryStoreMutation } from './api-slice';
-import { IDevCategoryStatus } from './type';
+import { alertConfirm, handleValidationError } from '@/lib';
+import { toast } from 'sonner';
+import { useDevCategoryQuery } from '../dev-category';
+import { useDevSubCategoryStoreMutation } from './api-slice';
+import { IDevSubCategoryStatus } from './type';
 
 // --- Zod Schema ---
 const schema = z.object({
@@ -49,12 +52,19 @@ const schema = z.object({
 		.string({ error: 'Permission Key is required' })
 		.trim()
 		.min(1, 'Permission Key is required'),
-	status: z.enum([IDevCategoryStatus.Active, IDevCategoryStatus.Inactive]),
+	categoryId: z
+		.string({ error: 'Category is required' })
+		.min(1, 'Category is required'),
+	status: z.enum([
+		IDevSubCategoryStatus.Private,
+		IDevSubCategoryStatus.Public,
+		IDevSubCategoryStatus.Inactive,
+	]),
 });
 
 type ZodType = z.infer<typeof schema>;
 
-export function DevCategoryStore() {
+export function DevSubCategoryStore() {
 	const [open, setOpen] = useState(false);
 
 	return (
@@ -62,14 +72,14 @@ export function DevCategoryStore() {
 			<DialogTrigger asChild>
 				<Button size="lg" variant="brand">
 					<Plus className="h-4 w-4" />
-					<span className="hidden md:inline">Create Category</span>
+					<span className="hidden lg:inline">Create Sub Category</span>
 				</Button>
 			</DialogTrigger>
 
-			<DialogContent className="sm:max-w-[500px] overflow-y-scroll max-h-[90vh]">
+			<DialogContent className="sm:max-w-[500px] overflow-y-scroll max-h-[90vh] ">
 				<DialogHeader>
-					<DialogTitle>Create Category</DialogTitle>
-					<DialogDescription>Create a new category.</DialogDescription>
+					<DialogTitle>Create Sub Category</DialogTitle>
+					<DialogDescription>Create a new sub category.</DialogDescription>
 				</DialogHeader>
 
 				<FORM setOpen={setOpen} />
@@ -79,7 +89,13 @@ export function DevCategoryStore() {
 }
 
 const FORM = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
-	const [store, { isLoading }] = useDevCategoryStoreMutation();
+	const [store, { isLoading }] = useDevSubCategoryStoreMutation();
+	const { data: categories, isLoading: isLoadingCategories } =
+		useDevCategoryQuery({
+			status: 'active',
+			page: 1,
+			limit: 'all',
+		});
 
 	const form = useForm<ZodType>({
 		resolver: zodResolver(schema),
@@ -87,7 +103,7 @@ const FORM = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
 			description: '',
 			name: '',
 			permissionKey: '',
-			status: IDevCategoryStatus.Active,
+			status: IDevSubCategoryStatus.Private,
 		},
 	});
 
@@ -111,29 +127,35 @@ const FORM = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
 				try {
 					const response = await store(data).unwrap();
 					if (response.status) {
-						toaster({ message: response.message || 'Updated successfully' });
+						toast.success(response.message || 'Updated successfully');
 						form.reset();
 						setOpen(false);
 					} else {
 						if (!response?.status) {
 							handleValidationError(response, form.setError);
 						} else {
-							toaster({
-								message: response.message || 'Something went wrong',
-								type: 'error',
-							});
+							toast.error(response.message || 'Something went wrong');
 						}
 					}
 				} catch (error: any) {
 					if (error?.status === 400) {
 						handleValidationError(error, form.setError);
 					} else {
-						toaster({ message: 'Something went wrong', type: 'error' });
+						toast.error('Something went wrong');
 					}
 				}
 			},
 		});
 	};
+
+	if (isLoadingCategories) {
+		return (
+			<>
+				<Loader5 />
+				<Loader5 />
+			</>
+		);
+	}
 
 	return (
 		<Form {...form}>
@@ -146,7 +168,7 @@ const FORM = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
 						<FormItem>
 							<FormLabel>Name</FormLabel>
 							<FormControl>
-								<Input {...field} placeholder="Type category name..." />
+								<Input {...field} placeholder="Type sub category name..." />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -163,10 +185,39 @@ const FORM = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
 							<FormControl>
 								<Input
 									{...field}
-									placeholder="Auto-generated from name..."
+									placeholder="Auto-generated from sub category name..."
 									readOnly
 								/>
 							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+
+				{/* Category */}
+				<FormField
+					control={form.control}
+					name="categoryId"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Category</FormLabel>
+							<Select onValueChange={field.onChange}>
+								<FormControl>
+									<SelectTrigger className="w-full">
+										<SelectValue placeholder="Select category" />
+									</SelectTrigger>
+								</FormControl>
+								<SelectContent>
+									{categories?.data.map((category) => (
+										<SelectItem
+											key={category.id}
+											value={category.id.toString()}
+										>
+											{category.name}
+										</SelectItem>
+									))}
+								</SelectContent>
+							</Select>
 							<FormMessage />
 						</FormItem>
 					)}
@@ -201,12 +252,11 @@ const FORM = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
 									</SelectTrigger>
 								</FormControl>
 								<SelectContent>
-									<SelectItem value={IDevCategoryStatus.Active}>
-										Active
-									</SelectItem>
-									<SelectItem value={IDevCategoryStatus.Inactive}>
-										Inactive
-									</SelectItem>
+									{Object.values(IDevSubCategoryStatus).map((status) => (
+										<SelectItem key={status} value={status}>
+											{status.charAt(0).toUpperCase() + status.slice(1)}
+										</SelectItem>
+									))}
 								</SelectContent>
 							</Select>
 							<FormMessage />
@@ -219,7 +269,7 @@ const FORM = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
 						{isLoading && (
 							<LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
 						)}
-						{isLoading ? 'Creating...' : 'Create Category'}
+						{isLoading ? 'Creating...' : 'Create Sub Category'}
 					</Button>
 				</DialogFooter>
 			</form>

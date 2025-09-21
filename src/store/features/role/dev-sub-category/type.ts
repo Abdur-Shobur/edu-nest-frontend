@@ -1,14 +1,19 @@
-export interface ILogin {
-	email: string;
-	password: string;
+import { IDevCategory } from '../dev-category';
+
+export interface IDevSubCategory {
+	id: number;
+	name: string;
+	permissionKey: string;
+	description: string;
+	createdAt: string;
+	updatedAt: string;
+	status: IDevSubCategoryStatus;
+	category: IDevCategory;
 }
 
-export interface ILoginResponse {
-	accessToken: string;
-	refreshToken: string;
-	user: {
-		id: number;
-		name: string;
-		email: string;
-	};
+export enum IDevSubCategoryStatus {
+	Private = 'private',
+	Public = 'public',
+	Inactive = 'inactive',
+	Trashed = 'trashed',
 }

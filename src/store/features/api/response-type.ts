@@ -15,15 +15,10 @@ export interface IPaginatedResponse<T> {
 }
 
 export interface IMeta {
-	currentPage: number;
-	totalPages: number;
-	totalItems: number;
-	itemsPerPage: number;
 	hasNextPage: boolean;
 	hasPreviousPage: boolean;
 	limit: number;
 	page: number;
-	nextPage: number;
 	total: number;
 	pageCount: number;
 }

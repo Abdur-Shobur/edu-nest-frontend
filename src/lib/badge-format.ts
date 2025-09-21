@@ -6,22 +6,23 @@ type Badge = BadgeVariant['variant'];
 
 export const badgeFormat = (status: string | number): Badge => {
 	switch (status) {
-		case '1':
+		case '234':
 			return 'secondary';
 
-		case '2':
+		case 'public':
 			return 'outline';
 
 		case 'active':
+		case 'privet':
 			return 'success';
 
-		case '3':
+		case 'inactive':
 			return 'warning';
 
-		case '4':
+		case 'sd':
 			return 'info';
 
-		case '5':
+		case 'trashed':
 			return 'destructive';
 
 		default:

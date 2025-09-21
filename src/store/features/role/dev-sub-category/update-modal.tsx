@@ -1,22 +1,19 @@
 'use client';
 
+import { Loader5 } from '@/components/loader';
+import { Button } from '@/components/ui/button';
 import {
 	Dialog,
 	DialogContent,
-	DialogDescription,
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
 } from '@/components/ui/dialog';
-import { LoaderCircle, Plus } from 'lucide-react';
-import React, { Dispatch, SetStateAction, useState } from 'react';
-
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-
-import { Button } from '@/components/ui/button';
+import {
+	DropdownMenuItem,
+	DropdownMenuShortcut,
+} from '@/components/ui/dropdown-menu';
 import {
 	Form,
 	FormControl,
@@ -35,8 +32,15 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { alertConfirm, handleValidationError, toaster } from '@/lib';
-import { useDevCategoryStoreMutation } from './api-slice';
-import { IDevCategoryStatus } from './type';
+import { cn } from '@/lib/utils';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { LoaderCircle, Pen } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { useDevCategoryQuery } from '../dev-category';
+import { useDevSubCategoryUpdateMutation } from './api-slice';
+import { IDevSubCategory, IDevSubCategoryStatus } from './type';
 
 // --- Zod Schema ---
 const schema = z.object({
@@ -49,45 +53,70 @@ const schema = z.object({
 		.string({ error: 'Permission Key is required' })
 		.trim()
 		.min(1, 'Permission Key is required'),
-	status: z.enum([IDevCategoryStatus.Active, IDevCategoryStatus.Inactive]),
+	status: z.enum([
+		IDevSubCategoryStatus.Private,
+		IDevSubCategoryStatus.Public,
+		IDevSubCategoryStatus.Inactive,
+		IDevSubCategoryStatus.Trashed,
+	]),
+	categoryId: z
+		.string({ error: 'Category is required' })
+		.min(1, 'Category is required'),
 });
 
 type ZodType = z.infer<typeof schema>;
 
-export function DevCategoryStore() {
+//  Component
+export function UpdateModal({ data }: { data: IDevSubCategory }) {
 	const [open, setOpen] = useState(false);
 
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
-			<DialogTrigger asChild>
-				<Button size="lg" variant="brand">
-					<Plus className="h-4 w-4" />
-					<span className="hidden md:inline">Create Category</span>
-				</Button>
-			</DialogTrigger>
+			<DropdownMenuItem asChild onSelect={(e) => e.preventDefault()}>
+				<DialogTrigger className="flex items-center gap-2 w-full">
+					<DropdownMenuShortcut className="ml-0">
+						<Pen className="size-4" />
+					</DropdownMenuShortcut>
+					Edit Sub Category
+				</DialogTrigger>
+			</DropdownMenuItem>
 
-			<DialogContent className="sm:max-w-[500px] overflow-y-scroll max-h-[90vh]">
+			<DialogContent
+				className={cn('sm:max-w-[500px] w-full overflow-y-scroll max-h-[90vh]')}
+			>
 				<DialogHeader>
-					<DialogTitle>Create Category</DialogTitle>
-					<DialogDescription>Create a new category.</DialogDescription>
+					<DialogTitle>Update Sub Category</DialogTitle>
 				</DialogHeader>
 
-				<FORM setOpen={setOpen} />
+				{open && <FORM setOpen={setOpen} editData={data} />}
 			</DialogContent>
 		</Dialog>
 	);
 }
 
-const FORM = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
-	const [store, { isLoading }] = useDevCategoryStoreMutation();
+const FORM = ({
+	setOpen,
+	editData,
+}: {
+	setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+	editData: IDevSubCategory;
+}) => {
+	const [mutation, { isLoading }] = useDevSubCategoryUpdateMutation();
+	const { data: categories, isLoading: isLoadingCategories } =
+		useDevCategoryQuery({
+			status: 'active',
+			page: 1,
+			limit: 'all',
+		});
 
 	const form = useForm<ZodType>({
 		resolver: zodResolver(schema),
 		defaultValues: {
-			description: '',
-			name: '',
-			permissionKey: '',
-			status: IDevCategoryStatus.Active,
+			description: editData.description,
+			name: editData.name,
+			permissionKey: editData.permissionKey,
+			status: editData.status,
+			categoryId: editData.category.id.toString(),
 		},
 	});
 
@@ -105,35 +134,46 @@ const FORM = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
 		}
 	}, [watchedName, form]);
 
+	useEffect(() => {
+		form.reset({
+			description: editData.description,
+			name: editData.name,
+			permissionKey: editData.permissionKey,
+			status: editData.status,
+			categoryId: editData.category.id.toString(),
+		});
+	}, [editData]);
+
 	const onSubmit = async (data: ZodType) => {
 		alertConfirm({
 			onOk: async () => {
 				try {
-					const response = await store(data).unwrap();
+					const response = await mutation({
+						...data,
+						id: editData.id,
+					}).unwrap();
 					if (response.status) {
 						toaster({ message: response.message || 'Updated successfully' });
 						form.reset();
 						setOpen(false);
 					} else {
-						if (!response?.status) {
-							handleValidationError(response, form.setError);
-						} else {
-							toaster({
-								message: response.message || 'Something went wrong',
-								type: 'error',
-							});
-						}
+						handleValidationError(response, form.setError);
 					}
 				} catch (error: any) {
-					if (error?.status === 400) {
-						handleValidationError(error, form.setError);
-					} else {
-						toaster({ message: 'Something went wrong', type: 'error' });
-					}
+					handleValidationError(error, form.setError);
 				}
 			},
 		});
 	};
+
+	if (isLoadingCategories) {
+		return (
+			<>
+				<Loader5 />
+				<Loader5 />
+			</>
+		);
+	}
 
 	return (
 		<Form {...form}>
@@ -172,6 +212,38 @@ const FORM = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
 					)}
 				/>
 
+				{/* Category */}
+				<FormField
+					control={form.control}
+					name="categoryId"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Category</FormLabel>
+							<Select
+								onValueChange={(value) => field.onChange(value.toString())}
+								defaultValue={field.value.toString()}
+							>
+								<FormControl>
+									<SelectTrigger className="w-full">
+										<SelectValue placeholder="Select category" />
+									</SelectTrigger>
+								</FormControl>
+								<SelectContent>
+									{categories?.data.map((category) => (
+										<SelectItem
+											key={category.id}
+											value={category.id.toString()}
+										>
+											{category.name}
+										</SelectItem>
+									))}
+								</SelectContent>
+							</Select>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+
 				{/* Description */}
 				<FormField
 					control={form.control}
@@ -201,12 +273,11 @@ const FORM = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
 									</SelectTrigger>
 								</FormControl>
 								<SelectContent>
-									<SelectItem value={IDevCategoryStatus.Active}>
-										Active
-									</SelectItem>
-									<SelectItem value={IDevCategoryStatus.Inactive}>
-										Inactive
-									</SelectItem>
+									{Object.values(IDevSubCategoryStatus).map((status) => (
+										<SelectItem key={status} value={status}>
+											{status.charAt(0).toUpperCase() + status.slice(1)}
+										</SelectItem>
+									))}
 								</SelectContent>
 							</Select>
 							<FormMessage />
@@ -219,7 +290,7 @@ const FORM = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
 						{isLoading && (
 							<LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
 						)}
-						{isLoading ? 'Creating...' : 'Create Category'}
+						{isLoading ? 'Updating...' : 'Update Sub Category'}
 					</Button>
 				</DialogFooter>
 			</form>

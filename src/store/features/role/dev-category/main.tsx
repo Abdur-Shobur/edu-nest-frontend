@@ -19,30 +19,34 @@ import { badgeFormat, tableSrCount } from '@/lib';
 
 import { Button } from '@/components/ui/button';
 
-import { DBPagination1 } from '@/components/pagination';
+import { Pagination } from '@/components/ui/pagination';
 import { Ellipsis, LoaderCircle } from 'lucide-react';
 import { ApiDeleteDropdownHandler } from '../../api/api-delete-dropdown-handler';
+import { ApiStatusDropdownHandler } from '../../api/api-status-dropdown-handler';
 import { IMeta } from '../../api/response-type';
-import { DescriptionModal } from './description-modal';
-import { StatusHandler } from './status-handler';
+import {
+	useDevCategoryDeleteMutation,
+	useDevCategoryStatusMutation,
+} from './api-slice';
+import Toolbar from './toolbar';
 import { IDevCategory } from './type';
+import { UpdateModal } from './update-modal';
 
 export const DevCategoryPage = ({
 	data,
 	meta,
-	setPage,
-	setLimit,
+	params,
+	setParams,
 }: {
 	data?: IDevCategory[];
 	meta?: IMeta;
-	setPage: (page: number) => void;
-	setLimit: (limit: number) => void;
+	params: Record<string, any>;
+	setParams: (params: Record<string, any>) => void;
 }) => {
-	console.log('DevCategory data:', data, meta);
-
 	return (
 		<>
-			<div className="border rounded-lg relative">
+			<Toolbar params={params} setParams={setParams} />
+			<div className="border rounded-lg relative mb-4">
 				<Table>
 					<TableHeader>
 						<TableRow>
@@ -57,6 +61,9 @@ export const DevCategoryPage = ({
 							</TableHead>
 							<TableHead className="bg-stone-100 dark:bg-transparent">
 								Description
+							</TableHead>
+							<TableHead className="bg-stone-100 dark:bg-transparent">
+								Sub Categories
 							</TableHead>
 							<TableHead className="bg-stone-100 dark:bg-transparent">
 								Status
@@ -80,7 +87,7 @@ export const DevCategoryPage = ({
 							data?.map((item, i) => (
 								<TableRow key={item.id}>
 									<TableCell className="py-2 pl-4">
-										{tableSrCount(meta?.currentPage ?? 1, i)}
+										{tableSrCount(meta?.page ?? 1, i)}
 									</TableCell>
 									<TableCell className="py-2 font-medium">
 										{item.name}
@@ -91,12 +98,22 @@ export const DevCategoryPage = ({
 										</code>
 									</TableCell>
 									<TableCell className="py-2 max-w-xs truncate">
-										{item.description || 'No description'}
+										{item.description || '----'}
 									</TableCell>
 									<TableCell className="py-2">
 										<Badge
 											className="capitalize"
-											variant={badgeFormat(item.status || '')}
+											variant={badgeFormat(
+												item.subCategories.length > 0 ? 'active' : 'inactive'
+											)}
+										>
+											{item.subCategories.length}
+										</Badge>
+									</TableCell>
+									<TableCell className="py-2">
+										<Badge
+											className="capitalize"
+											variant={badgeFormat(item.status)}
 										>
 											{item.status}
 										</Badge>
@@ -111,10 +128,15 @@ export const DevCategoryPage = ({
 				</Table>
 			</div>
 			{meta && (
-				<DBPagination1
-					pagination={meta}
-					setPage={setPage}
-					setLimit={setLimit}
+				<Pagination
+					currentPage={meta?.page}
+					totalItems={meta?.total}
+					pageSize={meta?.limit}
+					onPageChange={(newPage) => setParams({ page: newPage })}
+					onPageSizeChange={(newLimit) =>
+						setParams({ limit: newLimit, page: 1 })
+					}
+					pageSizeOptions={[5, 10, 20, 50, 100]}
 				/>
 			)}
 		</>
@@ -122,7 +144,12 @@ export const DevCategoryPage = ({
 };
 
 const DropDownAction = ({ item }: { item: IDevCategory }) => {
-	const isLoading = false;
+	const [mutation, { isLoading }] = useDevCategoryDeleteMutation();
+	const [mutationStatus, { isLoading: isLoadingStatus }] =
+		useDevCategoryStatusMutation();
+
+	const loading = isLoading || isLoadingStatus;
+
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -130,9 +157,10 @@ const DropDownAction = ({ item }: { item: IDevCategory }) => {
 					variant="outline"
 					className="data-[state=open]:bg-muted text-muted-foreground flex size-8"
 					size="icon"
+					disabled={loading}
 				>
-					{isLoading ? (
-						<LoaderCircle className="size-4 animate-spin text-destructive" />
+					{loading ? (
+						<LoaderCircle className="size-4 animate-spin" />
 					) : (
 						<Ellipsis />
 					)}
@@ -140,21 +168,53 @@ const DropDownAction = ({ item }: { item: IDevCategory }) => {
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end" className="w-56">
-				<DescriptionModal data={item} />
-				<StatusHandler
-					data={item}
-					status={item.status}
-					text={item.status === 'active' ? 'Inactive' : 'Active'}
-					icon={item.status === 'active' ? 'X' : 'Check'}
-				/>
+				{/* Update */}
+				<UpdateModal data={item} />
+
+				{/* STATUS ACTIVE   */}
+				{item.status !== 'active' && (
+					<ApiStatusDropdownHandler
+						data={{ id: item.id, status: 'active' }}
+						mutation={mutationStatus}
+						isLoading={isLoadingStatus}
+						text="Set Active"
+						icon="Check"
+					/>
+				)}
+				{/* STATUS INACTIVE   */}
+				{item.status !== 'inactive' && (
+					<ApiStatusDropdownHandler
+						data={{ id: item.id, status: 'inactive' }}
+						mutation={mutationStatus}
+						isLoading={isLoadingStatus}
+						text="Set Inactive"
+						icon="CircleOff"
+					/>
+				)}
+
 				<DropdownMenuSeparator />
 
+				{/* STATUS DELETED   */}
+				{item.status !== 'trashed' && (
+					<ApiStatusDropdownHandler
+						data={{ id: item.id, status: 'trashed' }}
+						mutation={mutationStatus}
+						isLoading={isLoadingStatus}
+						text="Move to Trash"
+						icon="Trash"
+						variant="destructive"
+					/>
+				)}
+
 				{/* Delete   */}
-				<ApiDeleteDropdownHandler
-					data={item}
-					mutation={() => {}}
-					isLoading={isLoading}
-				/>
+				{item.status === 'trashed' && (
+					<ApiDeleteDropdownHandler
+						data={{ id: item.id }}
+						mutation={mutation}
+						isLoading={isLoading}
+						text="Delete Permanently"
+					/>
+				)}
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);

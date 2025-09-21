@@ -1,15 +1,16 @@
 import { IDevSubCategory } from '../dev-sub-category';
 
-export interface IDevCategory {
+export interface IRole {
 	id: number;
 	name: string;
-	permissionKey: string;
+	roleKey: string;
 	description: string;
-	status: IDevCategoryStatus;
-	subCategories: IDevSubCategory[];
+	status: IRoleStatus;
+	createdAt: string;
+	updatedAt: string;
+	permissions: IDevSubCategory[];
 }
-
-export enum IDevCategoryStatus {
+export enum IRoleStatus {
 	Active = 'active',
 	Inactive = 'inactive',
 	Trashed = 'trashed',

@@ -198,7 +198,7 @@ const hrm: sidebarItem[] = [
 		items: [
 			{
 				title: 'Roles',
-				url: '/dashboard/role-permissions',
+				url: '/dashboard/roles',
 			},
 			{
 				title: 'Dev Category',
@@ -210,7 +210,7 @@ const hrm: sidebarItem[] = [
 			},
 			{
 				title: 'Managers',
-				url: '/dashboard/manager-permissions',
+				url: '/dashboard/roles/managers',
 			},
 		],
 	},

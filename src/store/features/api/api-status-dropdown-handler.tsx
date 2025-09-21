@@ -1,25 +1,29 @@
 'use client';
 
-import { LoaderCircle, X } from 'lucide-react';
 import { useState } from 'react';
 
 import {
 	DropdownMenuItem,
 	DropdownMenuShortcut,
 } from '@/components/ui/dropdown-menu';
-import { alertConfirm, toaster } from '@/lib';
+import { alertConfirm, cn, toaster } from '@/lib';
+import { DynamicIcon } from '@/lib/icon/dynamic-icon';
 import { ResponseType } from './response-type';
 
-export function ApiDeleteDropdownHandler({
+export function ApiStatusDropdownHandler({
 	data,
 	mutation,
 	isLoading,
-	text = 'Delete',
+	text = 'Status',
+	variant = 'default',
+	icon = 'X',
 }: {
 	data: any;
 	mutation: any;
 	isLoading: any;
 	text?: string;
+	variant?: 'default' | 'destructive';
+	icon?: string;
 }) {
 	const [clicked, setClicked] = useState(false);
 
@@ -32,13 +36,14 @@ export function ApiDeleteDropdownHandler({
 			onOk: async () => {
 				try {
 					const res: ResponseType<null> = await mutation(data).unwrap();
+					console.log(res);
 					if (res.status) {
-						toaster({ message: res.message || 'Deleted successfully' });
+						toaster({ message: res.message || 'Status updated successfully' });
 					} else {
-						toaster({ message: res.message || 'Failed to delete' });
+						toaster({ message: res.message || 'Failed to update status' });
 					}
 				} catch (err) {
-					toaster({ message: 'Failed to delete' });
+					toaster({ message: 'Failed to update status' });
 				} finally {
 					setClicked(false);
 				}
@@ -57,14 +62,16 @@ export function ApiDeleteDropdownHandler({
 			}}
 			disabled={isLoading || clicked}
 			className="flex items-center gap-2 cursor-pointer"
-			variant="destructive"
+			variant={variant}
 		>
 			<DropdownMenuShortcut className="ml-0">
-				{isLoading ? (
-					<LoaderCircle className="size-4 animate-spin text-destructive" />
-				) : (
-					<X className="size-4 text-destructive" />
-				)}
+				<DynamicIcon
+					icon={icon}
+					className={cn(
+						'size-4',
+						variant === 'destructive' ? 'text-destructive' : 'text-primary'
+					)}
+				/>
 			</DropdownMenuShortcut>
 			{text}
 		</DropdownMenuItem>

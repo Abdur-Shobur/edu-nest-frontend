@@ -55,7 +55,7 @@ export function Pagination({
 
 	return (
 		<div
-			className={`flex items-center flex-col md:flex-row justify-between gap-4 ${className}`}
+			className={`flex items-center flex-col lg:flex-row justify-between gap-4 ${className}`}
 		>
 			{/* results info */}
 			<div className="text-sm text-gray-500 dark:text-gray-400">

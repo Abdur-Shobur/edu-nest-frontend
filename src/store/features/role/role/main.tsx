@@ -24,21 +24,19 @@ import { Ellipsis, LoaderCircle } from 'lucide-react';
 import { ApiDeleteDropdownHandler } from '../../api/api-delete-dropdown-handler';
 import { ApiStatusDropdownHandler } from '../../api/api-status-dropdown-handler';
 import { IMeta } from '../../api/response-type';
-import {
-	useDevSubCategoryDeleteMutation,
-	useDevSubCategoryStatusMutation,
-} from './api-slice';
+import { IDevSubCategoryStatus } from '../dev-sub-category';
+import { useRoleDeleteMutation, useRoleStatusMutation } from './api-slice';
 import Toolbar from './toolbar';
-import { IDevSubCategory } from './type';
+import { IRole, IRoleStatus } from './type';
 import { UpdateModal } from './update-modal';
 
-export const DevSubCategoryPage = ({
+export const RolePage = ({
 	data,
 	meta,
 	params,
 	setParams,
 }: {
-	data?: IDevSubCategory[];
+	data?: IRole[];
 	meta?: IMeta;
 	params: Record<string, any>;
 	setParams: (params: Record<string, any>) => void;
@@ -57,10 +55,10 @@ export const DevSubCategoryPage = ({
 								Name
 							</TableHead>
 							<TableHead className="bg-stone-100 dark:bg-transparent">
-								Permission Key
+								Role Key
 							</TableHead>
 							<TableHead className="bg-stone-100 dark:bg-transparent">
-								Category
+								Permissions
 							</TableHead>
 							<TableHead className="bg-stone-100 dark:bg-transparent">
 								Description
@@ -94,15 +92,24 @@ export const DevSubCategoryPage = ({
 									</TableCell>
 									<TableCell className="py-2">
 										<code className="bg-muted px-2 py-1 rounded text-sm">
-											{item.permissionKey}
+											{item.roleKey}
 										</code>
 									</TableCell>
 									<TableCell className="py-2">
 										<Badge
 											className="capitalize"
-											variant={badgeFormat(item?.category?.status)}
+											variant={badgeFormat(
+												item?.permissions?.length > 0 ? 'active' : 'inactive'
+											)}
 										>
-											{item?.category?.name}
+											{
+												item?.permissions?.filter(
+													(permission) =>
+														permission.status !==
+															IDevSubCategoryStatus.Trashed &&
+														permission.status !== IDevSubCategoryStatus.Inactive
+												).length
+											}
 										</Badge>
 									</TableCell>
 									<TableCell className="py-2 max-w-xs truncate">
@@ -141,10 +148,10 @@ export const DevSubCategoryPage = ({
 	);
 };
 
-const DropDownAction = ({ item }: { item: IDevSubCategory }) => {
-	const [mutation, { isLoading }] = useDevSubCategoryDeleteMutation();
+const DropDownAction = ({ item }: { item: IRole }) => {
+	const [mutation, { isLoading }] = useRoleDeleteMutation();
 	const [mutationStatus, { isLoading: isLoadingStatus }] =
-		useDevSubCategoryStatusMutation();
+		useRoleStatusMutation();
 
 	const loading = isLoading || isLoadingStatus;
 
@@ -170,30 +177,20 @@ const DropDownAction = ({ item }: { item: IDevSubCategory }) => {
 				<UpdateModal data={item} />
 
 				{/* STATUS ACTIVE   */}
-				{item.status !== 'private' && (
+				{item.status !== IRoleStatus.Active && (
 					<ApiStatusDropdownHandler
-						data={{ id: item.id, status: 'private' }}
+						data={{ id: item.id, status: IRoleStatus.Active }}
 						mutation={mutationStatus}
 						isLoading={isLoadingStatus}
-						text="Set Private"
-						icon="Check"
-					/>
-				)}
-				{/* STATUS PUBLIC   */}
-				{item.status !== 'public' && (
-					<ApiStatusDropdownHandler
-						data={{ id: item.id, status: 'public' }}
-						mutation={mutationStatus}
-						isLoading={isLoadingStatus}
-						text="Set Public"
+						text="Set Active"
 						icon="Check"
 					/>
 				)}
 
 				{/* STATUS INACTIVE   */}
-				{item.status !== 'inactive' && (
+				{item.status !== IRoleStatus.Inactive && (
 					<ApiStatusDropdownHandler
-						data={{ id: item.id, status: 'inactive' }}
+						data={{ id: item.id, status: IRoleStatus.Inactive }}
 						mutation={mutationStatus}
 						isLoading={isLoadingStatus}
 						text="Set Inactive"
@@ -204,9 +201,9 @@ const DropDownAction = ({ item }: { item: IDevSubCategory }) => {
 				<DropdownMenuSeparator />
 
 				{/* STATUS DELETED   */}
-				{item.status !== 'trashed' && (
+				{item.status !== IRoleStatus.Trashed && (
 					<ApiStatusDropdownHandler
-						data={{ id: item.id, status: 'trashed' }}
+						data={{ id: item.id, status: IRoleStatus.Trashed }}
 						mutation={mutationStatus}
 						isLoading={isLoadingStatus}
 						text="Move to Trash"
@@ -216,7 +213,7 @@ const DropDownAction = ({ item }: { item: IDevSubCategory }) => {
 				)}
 
 				{/* Delete   */}
-				{item.status === 'trashed' && (
+				{item.status === IRoleStatus.Trashed && (
 					<ApiDeleteDropdownHandler
 						data={{ id: item.id }}
 						mutation={mutation}

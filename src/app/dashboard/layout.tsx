@@ -9,7 +9,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
 		<SidebarProvider className={`${inter.className} antialiased`}>
 			<AppSidebarForAdmin />
-			<SidebarInset className="border m-1.5 rounded-2xl">
+			<SidebarInset className="border m-1.5 rounded-2xl overflow-x-hidden">
 				{children}
 			</SidebarInset>
 		</SidebarProvider>

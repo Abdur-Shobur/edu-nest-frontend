@@ -9,7 +9,7 @@ export type HeaderProps = {
 
 export function Header({ breadcrumbItems, children }: HeaderProps) {
 	return (
-		<header className="flex shrink-0  pt-3 pb-5 gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-auto justify-between px-5">
+		<header className="flex shrink-0 pt-3 pb-2 lg:pb-5 gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-auto justify-between px-5">
 			<div>
 				<div className="flex items-center gap-2">
 					<SidebarTrigger className="-ml-1.5" />

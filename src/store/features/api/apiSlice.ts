@@ -6,7 +6,6 @@ const baseQuery = fetchBaseQuery({
 	baseUrl: `${env.baseAPI}/api`,
 	prepareHeaders: async (headers) => {
 		const session = await getSession(); // Get session from NextAuth
-		console.log('session', session);
 
 		if (session) {
 			headers.set('Authorization', `Bearer ${session.accessToken}`);
@@ -16,18 +15,12 @@ const baseQuery = fetchBaseQuery({
 	},
 });
 
-export const TAG_TYPES = [
-	'USER',
-	'ROLE_DEV_CATEGORY',
-	'ROLE_DEV_SUB_CATEGORY',
-] as const;
-
 export const apiSlice = createApi({
 	reducerPath: 'api',
 	baseQuery,
 	endpoints: () => ({}),
 	refetchOnReconnect: true,
 	refetchOnFocus: true,
-	tagTypes: TAG_TYPES as unknown as string[],
+	tagTypes: ['USER', 'ROLE_DEV_CATEGORY', 'ROLE_DEV_SUB_CATEGORY', 'ROLE'],
 	keepUnusedDataFor: 50000,
 });
