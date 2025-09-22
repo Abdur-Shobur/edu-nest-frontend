@@ -29,18 +29,18 @@ const products: sidebarItem[] = [
 		items: [
 			{
 				title: 'Category',
-				url: '/admin/category',
+				url: '/dashboard/category',
 			},
 			{
 				title: 'Sub Category',
-				url: '/admin/sub-category',
+				url: '/dashboard/sub-category',
 			},
 		],
 	},
 
 	{
 		title: 'Product Brands',
-		url: '/admin/brand',
+		url: '/dashboard/brand',
 		icon: LandPlot,
 		isActive: false,
 	},

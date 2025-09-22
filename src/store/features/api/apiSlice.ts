@@ -21,6 +21,14 @@ export const apiSlice = createApi({
 	endpoints: () => ({}),
 	refetchOnReconnect: true,
 	refetchOnFocus: true,
-	tagTypes: ['USER', 'ROLE_DEV_CATEGORY', 'ROLE_DEV_SUB_CATEGORY', 'ROLE'],
+	tagTypes: [
+		'USER',
+		'ROLE_DEV_CATEGORY',
+		'ROLE_DEV_SUB_CATEGORY',
+		'ROLE',
+		'CATEGORY',
+		'SUB_CATEGORY',
+		'BRAND',
+	],
 	keepUnusedDataFor: 50000,
 });

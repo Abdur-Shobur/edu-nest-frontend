@@ -7,5 +7,6 @@ export * from './errorHandler';
 export * from './format';
 export * from './motion';
 export * from './table-sr-count';
+export * from './text-count';
 export * from './toast';
 export * from './utils';

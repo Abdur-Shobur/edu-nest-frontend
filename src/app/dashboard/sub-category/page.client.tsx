@@ -2,7 +2,12 @@
 
 import { Container1 } from '@/components/container';
 import { CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { RolePage, RoleStore, useRoleQuery } from '@/store/features/role';
+import {
+	SubCategoryPage,
+	SubCategoryStore,
+	useSubCategoryQuery,
+} from '@/store/features/sub-category';
+
 import { useQueryStates } from 'nuqs';
 
 const PageClient = () => {
@@ -34,7 +39,7 @@ const PageClient = () => {
 	const [params, setParams] = useQueryStates(paramsConfig, { shallow: false });
 	const { page, limit, status, search } = params;
 
-	const { data, isLoading, isError, error } = useRoleQuery({
+	const { data, isLoading, isError, error } = useSubCategoryQuery({
 		page,
 		limit,
 		status,
@@ -50,20 +55,20 @@ const PageClient = () => {
 				<CardHeader className="pb-2 px-5 flex-1 flex items-center justify-between">
 					<div>
 						<CardTitle className="text-primary font-semibold text-xl">
-							Roles
+							Sub Category
 						</CardTitle>
 						<CardDescription className="text-tertiary font-normal text-base hidden lg:block">
-							Recently created Roles from this organization.
+							Recently created Sub Category from this organization.
 						</CardDescription>
 					</div>
-					<RoleStore />
+					<SubCategoryStore />
 				</CardHeader>
 			}
 		>
 			{/* page content */}
 
 			{data?.data && (
-				<RolePage
+				<SubCategoryPage
 					data={data?.data}
 					meta={data?.meta}
 					params={params}
