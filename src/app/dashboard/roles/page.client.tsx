@@ -1,8 +1,9 @@
 'use client';
 
 import { Container1 } from '@/components/container';
-import { CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { CardHeader, CardTitle } from '@/components/ui/card';
 import { RolePage, RoleStore, useRoleQuery } from '@/store/features/role';
+import Link from 'next/link';
 import { useQueryStates } from 'nuqs';
 
 const PageClient = () => {
@@ -52,9 +53,13 @@ const PageClient = () => {
 						<CardTitle className="text-primary font-semibold text-xl">
 							Roles
 						</CardTitle>
-						<CardDescription className="text-tertiary font-normal text-base hidden lg:block">
-							Recently created Roles from this organization.
-						</CardDescription>
+
+						<Link
+							href="/dashboard/roles/permissions"
+							className="text-primary font-semibold text-base"
+						>
+							Go to Roles Keys
+						</Link>
 					</div>
 					<RoleStore />
 				</CardHeader>

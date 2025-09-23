@@ -7,10 +7,7 @@ const api = apiSlice.injectEndpoints({
 		/**
 		 * Dev Sub Category Store
 		 **/
-		RoleStore: builder.mutation<
-			ResponseType<IRole>,
-			Partial<IRole>
-		>({
+		RoleStore: builder.mutation<ResponseType<IRole>, Partial<IRole>>({
 			query: (data) => {
 				return {
 					url: '/role',
@@ -24,10 +21,7 @@ const api = apiSlice.injectEndpoints({
 		/**
 		 * Dev Sub Category Update
 		 **/
-		RoleUpdate: builder.mutation<
-			ResponseType<IRole>,
-			Partial<IRole>
-		>({
+		RoleUpdate: builder.mutation<ResponseType<IRole>, Partial<IRole>>({
 			query: (data) => {
 				const { id, ...rest } = data;
 				return {
@@ -42,10 +36,7 @@ const api = apiSlice.injectEndpoints({
 		/**
 		 * Dev Sub Category Delete
 		 **/
-		RoleDelete: builder.mutation<
-			ResponseType<IRole>,
-			{ id: number }
-		>({
+		RoleDelete: builder.mutation<ResponseType<IRole>, { id: number }>({
 			query: ({ id }) => {
 				return {
 					url: `/role/${id}`,
@@ -75,7 +66,12 @@ const api = apiSlice.injectEndpoints({
 		 **/
 		Role: builder.query<
 			IPaginatedResponse<IRole>,
-			{ status?: string; page?: number; limit?: number; search?: string }
+			{
+				status?: string;
+				page?: number;
+				limit?: number | 'all';
+				search?: string;
+			}
 		>({
 			query: ({ page = 1, limit = 10, status = '', search = '' }) => {
 				const allowedStatuses = Object.values(IRoleStatus);

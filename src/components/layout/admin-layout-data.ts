@@ -187,7 +187,7 @@ const cms: sidebarItem[] = [
 const hrm: sidebarItem[] = [
 	{
 		title: 'Settings',
-		url: '/admin/settings',
+		url: '/dashboard/settings',
 		icon: Settings,
 		isActive: false,
 	},
