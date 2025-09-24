@@ -3,7 +3,7 @@ import { Header } from '@/components/common/header';
 import { PageWrap } from '@/components/common/page-wrap';
 import { CardHeader, CardTitle } from '@/components/ui/card';
 import { Metadata } from 'next';
-import DistributionsPage from './page.client';
+import PageClient from './page.client';
 
 // breadcrumb items
 const breadcrumbItems: Crumb[] = [
@@ -22,16 +22,15 @@ export default function Page() {
 			{/* page wrap */}
 			<PageWrap
 				header={
-					// page header
-					<CardHeader className="pb-2 px-5">
-						<CardTitle className="text-primary text-[27px] font-semibold">
+					<CardHeader className="pb-2 px-5 flex-1 flex items-center justify-between">
+						<CardTitle className="text-primary font-semibold text-xl">
 							Dashboard
 						</CardTitle>
 					</CardHeader>
 				}
 			>
 				{/* page content */}
-				<DistributionsPage />
+				<PageClient />
 			</PageWrap>
 		</>
 	);

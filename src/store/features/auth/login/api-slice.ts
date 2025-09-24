@@ -1,3 +1,4 @@
+import { toaster } from '@/lib';
 import { signIn } from 'next-auth/react';
 import { apiSlice } from '../../api/apiSlice';
 import { ResponseType } from '../../api/response-type';
@@ -20,10 +21,27 @@ const api = apiSlice.injectEndpoints({
 				try {
 					const { data } = await queryFulfilled;
 					// persist tokens into NextAuth session
-					await signIn('credentials', {
-						redirect: false,
-						token: JSON.stringify(data),
-					});
+					if (data.statusCode === 200) {
+						const signInResult = await signIn('credentials', {
+							redirect: false,
+							token: JSON.stringify(data.data),
+						});
+
+						if (signInResult?.ok) {
+							toaster({ message: data.message || 'Login successful' });
+							// Redirect to dashboard immediately after successful login
+							if (typeof window !== 'undefined') {
+								window.location.replace('/dashboard');
+							}
+						} else {
+							toaster({
+								message: data.message || 'Login failed',
+								type: 'error',
+							});
+						}
+					} else {
+						toaster({ message: data.message || 'Login failed', type: 'error' });
+					}
 				} catch (e) {
 					// ignore, handled by the component
 				}

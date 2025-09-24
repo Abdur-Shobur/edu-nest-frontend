@@ -17,12 +17,14 @@ export const badgeFormat = (status: string | number): Badge => {
 			return 'success';
 
 		case 'inactive':
+		case 'pending':
 			return 'warning';
 
 		case 'sd':
 			return 'info';
 
 		case 'trashed':
+		case 'blocked':
 			return 'destructive';
 
 		default:

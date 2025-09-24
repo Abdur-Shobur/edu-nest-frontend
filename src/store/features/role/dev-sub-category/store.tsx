@@ -36,7 +36,7 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { alertConfirm, handleValidationError } from '@/lib';
-import { toast } from 'sonner';
+import { toaster } from '@/lib/toast';
 import { useDevCategoryQuery } from '../dev-category';
 import { useDevSubCategoryStoreMutation } from './api-slice';
 import { IDevSubCategoryStatus } from './type';
@@ -127,21 +127,24 @@ const FORM = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
 				try {
 					const response = await store(data).unwrap();
 					if (response.status) {
-						toast.success(response.message || 'Updated successfully');
-						form.reset();
-						setOpen(false);
+						toaster({ message: response.message || 'Updated successfully' });
+						// form.reset();
+						// setOpen(false);
 					} else {
 						if (!response?.status) {
 							handleValidationError(response, form.setError);
 						} else {
-							toast.error(response.message || 'Something went wrong');
+							toaster({
+								message: response.message || 'Something went wrong',
+								type: 'error',
+							});
 						}
 					}
 				} catch (error: any) {
 					if (error?.status === 400) {
 						handleValidationError(error, form.setError);
 					} else {
-						toast.error('Something went wrong');
+						toaster({ message: 'Something went wrong', type: 'error' });
 					}
 				}
 			},

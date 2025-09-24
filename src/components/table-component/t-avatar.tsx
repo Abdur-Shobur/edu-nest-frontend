@@ -8,12 +8,11 @@ export function TAvatar({
 	href,
 	className,
 }: {
-	image: string;
+	image?: string;
 	name: string;
 	href?: string;
 	className?: string;
 }) {
-	console.log(env.baseAPI + '/' + image);
 	if (href) {
 		return (
 			<Link href={href}>
@@ -23,7 +22,7 @@ export function TAvatar({
 						src={env.baseAPI + '/' + image}
 						alt={name}
 					/>
-					<AvatarFallback className="rounded-xl bg-sky-100">
+					<AvatarFallback className="rounded-xl">
 						{name.charAt(0).toUpperCase()}
 					</AvatarFallback>
 				</Avatar>

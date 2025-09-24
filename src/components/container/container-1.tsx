@@ -59,7 +59,7 @@ export function Container1({
 			>
 				<Card
 					className={cn(
-						'rounded-xl md:m-5 mt-0 pb-0.5 bg-secondary gap-0 pt-4'
+						'rounded-xl md:m-5 mt-0 md:mt-0 pb-0.5 bg-secondary gap-0 pt-4'
 					)}
 				>
 					{header && <Motion>{header}</Motion>}

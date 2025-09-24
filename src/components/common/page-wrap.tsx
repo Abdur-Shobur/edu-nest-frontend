@@ -15,7 +15,7 @@ export function PageWrap({
 			{/* if children is provided  */}
 			{children && (
 				<CardContent className="p-0.5">
-					<Card className="py-6">
+					<Card className="py-6 md:mt-0">
 						<CardContent className="px-2 md:px-5">{children}</CardContent>
 					</Card>
 				</CardContent>

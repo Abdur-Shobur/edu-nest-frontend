@@ -2,7 +2,6 @@
 
 import { toaster } from '@/lib';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -49,35 +48,35 @@ export const Login = () => {
 				password: values.password,
 			}).unwrap();
 
-			if (response.statusCode === 200) {
-				// sign in with credentials
-				const signInResult = await signIn('credentials', {
-					token: JSON.stringify(response.data),
-					redirect: false,
-				});
+			// if (response.statusCode === 200) {
+			// 	// sign in with credentials
+			// 	const signInResult = await signIn('credentials', {
+			// 		token: JSON.stringify(response.data),
+			// 		redirect: false,
+			// 	});
 
-				if (signInResult?.ok) {
-					//  if success
-					toaster({
-						message: response.message || 'Thank you for your message!',
-					});
-					reset({ email: '', password: '', remember: false });
-					router.push('/');
-				} else {
-					//  if failed
-					toaster({
-						message: 'Authentication failed. Please try again.',
-						type: 'error',
-					});
-				}
-			} else {
-				//  if failed
-				toaster({
-					message:
-						response.message || 'Login failed. Please check your credentials.',
-					type: 'error',
-				});
-			}
+			// 	if (signInResult?.ok) {
+			// 		//  if success
+			// 		toaster({
+			// 			message: response.message || 'Thank you for your message!',
+			// 		});
+			// 		reset({ email: '', password: '', remember: false });
+			// 		router.push('/');
+			// 	} else {
+			// 		//  if failed
+			// 		toaster({
+			// 			message: 'Authentication failed. Please try again.',
+			// 			type: 'error',
+			// 		});
+			// 	}
+			// } else {
+			// 	//  if failed
+			// 	toaster({
+			// 		message:
+			// 			response.message || 'Login failed. Please check your credentials.',
+			// 		type: 'error',
+			// 	});
+			// }
 		} catch (err: any) {
 			//  if failed with error
 			const message =

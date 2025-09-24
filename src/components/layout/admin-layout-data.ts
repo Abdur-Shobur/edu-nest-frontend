@@ -230,7 +230,7 @@ const hrm: sidebarItem[] = [
 const users: sidebarItem[] = [
 	{
 		title: 'Manage Users',
-		url: '/admin/users',
+		url: '/dashboard/user',
 		icon: UserCog,
 		isActive: false,
 	},

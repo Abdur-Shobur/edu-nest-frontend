@@ -30,6 +30,7 @@ export const apiSlice = createApi({
 		'SUB_CATEGORY',
 		'BRAND',
 		'SETTINGS',
+		'MANAGER',
 	],
 	keepUnusedDataFor: 50000,
 });

@@ -112,8 +112,8 @@ const FORM = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
 					const response = await store(data).unwrap();
 					if (response.status) {
 						toaster({ message: response.message || 'Updated successfully' });
-						form.reset();
-						setOpen(false);
+						// form.reset();
+						// setOpen(false);
 					} else {
 						if (!response?.status) {
 							handleValidationError(response, form.setError);
