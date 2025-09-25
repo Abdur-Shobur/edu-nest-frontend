@@ -17,28 +17,28 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { badgeFormat, dateFormat, tableSrCount, textCount } from '@/lib';
 
-import { TAvatar } from '@/components/table-component';
 import { Button } from '@/components/ui/button';
+
 import { Pagination } from '@/components/ui/pagination';
 import { Ellipsis, LoaderCircle } from 'lucide-react';
 import { ApiDeleteDropdownHandler } from '../../api/api-delete-dropdown-handler';
 import { ApiStatusDropdownHandler } from '../../api/api-status-dropdown-handler';
 import { IMeta } from '../../api/response-type';
 import {
-	useCMSBannerDeleteMutation,
-	useCMSBannerStatusMutation,
+	useBlogCategoryDeleteMutation,
+	useBlogCategoryStatusMutation,
 } from './api-slice';
 import Toolbar from './toolbar';
-import { ICMSBanner } from './type';
+import { IBlogCategory } from './type';
 import { UpdateModal } from './update-modal';
 
-export const CMSBannerPage = ({
+export const BlogCategoryPage = ({
 	data,
 	meta,
 	params,
 	setParams,
 }: {
-	data?: ICMSBanner[];
+	data?: IBlogCategory[];
 	meta?: IMeta;
 	params: Record<string, any>;
 	setParams: (params: Record<string, any>) => void;
@@ -53,17 +53,15 @@ export const CMSBannerPage = ({
 							<TableHead className="bg-stone-100 dark:bg-transparent">
 								Sr.
 							</TableHead>
+
 							<TableHead className="bg-stone-100 dark:bg-transparent">
-								Order
+								Name
 							</TableHead>
 							<TableHead className="bg-stone-100 dark:bg-transparent">
-								Image
+								Slug
 							</TableHead>
 							<TableHead className="bg-stone-100 dark:bg-transparent">
-								Title
-							</TableHead>
-							<TableHead className="bg-stone-100 dark:bg-transparent">
-								Banner For
+								Description
 							</TableHead>
 							<TableHead className="bg-stone-100 dark:bg-transparent">
 								Status
@@ -80,7 +78,7 @@ export const CMSBannerPage = ({
 						{data?.length === 0 ? (
 							<TableRow>
 								<TableCell
-									colSpan={8}
+									colSpan={5}
 									className="text-center py-8 text-muted-foreground"
 								>
 									No items found matching your criteria
@@ -92,15 +90,15 @@ export const CMSBannerPage = ({
 									<TableCell className="py-2 pl-4">
 										{tableSrCount(meta?.page ?? 1, i)}
 									</TableCell>
-									<TableCell className="py-2">{item.order}</TableCell>
-									<TableCell className="py-2">
-										<TAvatar image={item.image} name={item.title} />
+
+									<TableCell className="py-2 font-medium">
+										{textCount(item.name)}
 									</TableCell>
 									<TableCell className="py-2 font-medium">
-										{textCount(item.title)}
+										<code>{textCount(item.slug)}</code>
 									</TableCell>
-									<TableCell className="py-2">
-										<Badge variant="info">{item.bannerKey}</Badge>
+									<TableCell className="py-2 max-w-xs truncate">
+										{textCount(item.description) || '----'}
 									</TableCell>
 
 									<TableCell className="py-2">
@@ -139,10 +137,10 @@ export const CMSBannerPage = ({
 	);
 };
 
-const DropDownAction = ({ item }: { item: ICMSBanner }) => {
-	const [mutation, { isLoading }] = useCMSBannerDeleteMutation();
+const DropDownAction = ({ item }: { item: IBlogCategory }) => {
+	const [mutation, { isLoading }] = useBlogCategoryDeleteMutation();
 	const [mutationStatus, { isLoading: isLoadingStatus }] =
-		useCMSBannerStatusMutation();
+		useBlogCategoryStatusMutation();
 
 	const loading = isLoading || isLoadingStatus;
 

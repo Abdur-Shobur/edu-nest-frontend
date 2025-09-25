@@ -25,20 +25,20 @@ import { ApiDeleteDropdownHandler } from '../../api/api-delete-dropdown-handler'
 import { ApiStatusDropdownHandler } from '../../api/api-status-dropdown-handler';
 import { IMeta } from '../../api/response-type';
 import {
-	useCMSBannerDeleteMutation,
-	useCMSBannerStatusMutation,
+	useCMSBlogDeleteMutation,
+	useCMSBlogStatusMutation,
 } from './api-slice';
 import Toolbar from './toolbar';
-import { ICMSBanner } from './type';
+import { IBlog, IBlogStatus } from './type';
 import { UpdateModal } from './update-modal';
 
-export const CMSBannerPage = ({
+export const CMSBlogPage = ({
 	data,
 	meta,
 	params,
 	setParams,
 }: {
-	data?: ICMSBanner[];
+	data?: IBlog[];
 	meta?: IMeta;
 	params: Record<string, any>;
 	setParams: (params: Record<string, any>) => void;
@@ -57,13 +57,19 @@ export const CMSBannerPage = ({
 								Order
 							</TableHead>
 							<TableHead className="bg-stone-100 dark:bg-transparent">
-								Image
+								Banner
 							</TableHead>
 							<TableHead className="bg-stone-100 dark:bg-transparent">
 								Title
 							</TableHead>
 							<TableHead className="bg-stone-100 dark:bg-transparent">
-								Banner For
+								Category
+							</TableHead>
+							<TableHead className="bg-stone-100 dark:bg-transparent">
+								Author
+							</TableHead>
+							<TableHead className="bg-stone-100 dark:bg-transparent">
+								Read Time
 							</TableHead>
 							<TableHead className="bg-stone-100 dark:bg-transparent">
 								Status
@@ -94,13 +100,17 @@ export const CMSBannerPage = ({
 									</TableCell>
 									<TableCell className="py-2">{item.order}</TableCell>
 									<TableCell className="py-2">
-										<TAvatar image={item.image} name={item.title} />
+										<TAvatar image={item.banner} name={item.title} />
 									</TableCell>
 									<TableCell className="py-2 font-medium">
 										{textCount(item.title)}
 									</TableCell>
 									<TableCell className="py-2">
-										<Badge variant="info">{item.bannerKey}</Badge>
+										<Badge variant="info">{item.category?.name}</Badge>
+									</TableCell>
+									<TableCell className="py-2">{item.author?.name}</TableCell>
+									<TableCell className="py-2">
+										{item.readTime ? `${item.readTime} min` : '-'}
 									</TableCell>
 
 									<TableCell className="py-2">
@@ -139,10 +149,10 @@ export const CMSBannerPage = ({
 	);
 };
 
-const DropDownAction = ({ item }: { item: ICMSBanner }) => {
-	const [mutation, { isLoading }] = useCMSBannerDeleteMutation();
+const DropDownAction = ({ item }: { item: IBlog }) => {
+	const [mutation, { isLoading }] = useCMSBlogDeleteMutation();
 	const [mutationStatus, { isLoading: isLoadingStatus }] =
-		useCMSBannerStatusMutation();
+		useCMSBlogStatusMutation();
 
 	const loading = isLoading || isLoadingStatus;
 
@@ -167,23 +177,23 @@ const DropDownAction = ({ item }: { item: ICMSBanner }) => {
 				{/* Update */}
 				<UpdateModal data={item} />
 
-				{/* STATUS ACTIVE   */}
-				{item.status !== 'active' && (
+				{/* STATUS PUBLISHED   */}
+				{item.status !== IBlogStatus.Published && (
 					<ApiStatusDropdownHandler
-						data={{ id: item.id, status: 'active' }}
+						data={{ id: item.id, status: IBlogStatus.Published }}
 						mutation={mutationStatus}
 						isLoading={isLoadingStatus}
-						text="Set Active"
-						icon="Check"
+						text="Set Published"
+						icon="Newspaper"
 					/>
 				)}
-				{/* STATUS INACTIVE   */}
-				{item.status !== 'inactive' && (
+				{/* STATUS UNPUBLISHED   */}
+				{item.status !== IBlogStatus.Unpublished && (
 					<ApiStatusDropdownHandler
-						data={{ id: item.id, status: 'inactive' }}
+						data={{ id: item.id, status: IBlogStatus.Unpublished }}
 						mutation={mutationStatus}
 						isLoading={isLoadingStatus}
-						text="Set Inactive"
+						text="Set Unpublished"
 						icon="CircleOff"
 					/>
 				)}

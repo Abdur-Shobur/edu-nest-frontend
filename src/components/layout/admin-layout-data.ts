@@ -117,6 +117,21 @@ const cms: sidebarItem[] = [
 		],
 	},
 	{
+		title: 'Blog Content',
+		icon: FileText,
+		isActive: false,
+		items: [
+			{
+				title: 'All Blog',
+				url: '/dashboard/cms/blog',
+			},
+			{
+				title: 'Blog Category',
+				url: '/dashboard/cms/blog-category',
+			},
+		],
+	},
+	{
 		title: 'Others Content',
 		icon: FileText,
 		isActive: false,
@@ -128,6 +143,10 @@ const cms: sidebarItem[] = [
 			{
 				title: 'All List Items',
 				url: '/dashboard/cms/list-items',
+			},
+			{
+				title: 'All Tags',
+				url: '/dashboard/cms/tag',
 			},
 		],
 	},
