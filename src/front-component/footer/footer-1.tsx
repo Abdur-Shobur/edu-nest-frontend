@@ -52,7 +52,7 @@ export default function Footer1() {
 									</li>
 									<li>
 										<a href="#">
-											<i className="fas fa-caret-right"></i> FAQ's
+											<i className="fas fa-caret-right"></i> FAQ&apos;s
 										</a>
 									</li>
 									<li>

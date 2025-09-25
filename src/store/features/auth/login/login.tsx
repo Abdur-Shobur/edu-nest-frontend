@@ -157,7 +157,7 @@ export const Login = () => {
 						</form>
 						<div className="login-footer">
 							<p>
-								Don't have an account? <Link href="/register">Register.</Link>
+								Don&apos;t have an account? <Link href="/register">Register.</Link>
 							</p>
 						</div>
 					</div>

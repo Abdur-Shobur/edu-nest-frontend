@@ -7,7 +7,7 @@ export default function Header3() {
 					<div className="header-top-wrap">
 						<div className="header-top-left">
 							<p className="header-top-news">
-								Welcome! Get the latest updates and Eduka's response here.
+								Welcome! Get the latest updates and Eduka&apos;s response here.
 							</p>
 						</div>
 						<div className="header-top-right">

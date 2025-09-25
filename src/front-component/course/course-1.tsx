@@ -9,7 +9,7 @@ export default function Course1() {
 								<i className="far fa-book-open-reader"></i> Our Courses
 							</span>
 							<h2 className="site-title">
-								Let's Check Our <span>Courses</span>
+								Let&apos;s Check Our <span>Courses</span>
 							</h2>
 							<p>
 								It is a long established fact that a reader will be distracted

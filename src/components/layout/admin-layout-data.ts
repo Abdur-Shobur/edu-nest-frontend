@@ -46,19 +46,19 @@ const products: sidebarItem[] = [
 	},
 	{
 		title: 'Merchant Products',
-		url: '/admin/merchant-product',
+		url: '/dashboard/merchant-product',
 		icon: Package,
 		isActive: false,
 	},
 	{
 		title: 'Dropshipper Requests',
-		url: '/admin/dropshipper-request',
+		url: '/dashboard/dropshipper-request',
 		icon: PackageOpen,
 		isActive: false,
 	},
 	{
 		title: 'Products Orders',
-		url: '/admin/product-order',
+		url: '/dashboard/product-order',
 		icon: PackageCheck,
 		isActive: false,
 	},
@@ -71,24 +71,24 @@ const services: sidebarItem[] = [
 		items: [
 			{
 				title: 'Category',
-				url: '/admin/service-category',
+				url: '/dashboard/service-category',
 			},
 			{
 				title: 'Sub Category',
-				url: '/admin/service-sub-category',
+				url: '/dashboard/service-sub-category',
 			},
 		],
 	},
 
 	{
 		title: 'Manage Services',
-		url: '/admin/service',
+		url: '/dashboard/service',
 		icon: Package2,
 		isActive: false,
 	},
 	{
 		title: 'Service Orders',
-		url: '/admin/service-order',
+		url: '/dashboard/service-order',
 		icon: PackageCheck,
 		isActive: false,
 	},
@@ -100,36 +100,8 @@ const cms: sidebarItem[] = [
 		isActive: false,
 		items: [
 			{
-				title: 'Update Home',
-				url: '/admin/cms/home-content',
-			},
-			{
-				title: 'Service',
-				url: '/admin/cms/service',
-			},
-			{
-				title: 'Organization',
-				url: '/admin/cms/organization',
-			},
-			{
-				title: 'Organization Two',
-				url: '/admin/cms/organization-two',
-			},
-			{
-				title: 'IT Service',
-				url: '/admin/cms/it-service',
-			},
-			{
-				title: 'Partner',
-				url: '/admin/cms/partner',
-			},
-			{
-				title: 'Social',
-				url: '/admin/cms/social',
-			},
-			{
-				title: 'Contact',
-				url: '/admin/cms/contact',
+				title: 'Banner',
+				url: '/dashboard/cms/banner',
 			},
 		],
 	},
@@ -140,23 +112,7 @@ const cms: sidebarItem[] = [
 		items: [
 			{
 				title: 'Update About',
-				url: '/admin/cms/about',
-			},
-			{
-				title: 'Companions',
-				url: '/admin/cms/companions',
-			},
-			{
-				title: 'Missions',
-				url: '/admin/cms/missions',
-			},
-			{
-				title: 'Testimonial',
-				url: '/admin/cms/testimonial',
-			},
-			{
-				title: 'Members',
-				url: '/admin/cms/members',
+				url: '/dashboard/cms/about',
 			},
 		],
 	},
@@ -166,20 +122,12 @@ const cms: sidebarItem[] = [
 		isActive: false,
 		items: [
 			{
-				title: 'General',
-				url: '/admin/cms/general',
+				title: 'All Sections',
+				url: '/dashboard/cms/sections',
 			},
 			{
-				title: 'Advertise',
-				url: '/admin/cms/advertise',
-			},
-			{
-				title: 'Advertise Faq',
-				url: '/admin/cms/advertise-faq',
-			},
-			{
-				title: 'Service',
-				url: '/admin/cms/service-content',
+				title: 'All List Items',
+				url: '/dashboard/cms/list-items',
 			},
 		],
 	},
@@ -216,13 +164,13 @@ const hrm: sidebarItem[] = [
 	},
 	{
 		title: 'Withdrawals',
-		url: '/admin/withdrawal',
+		url: '/dashboard/withdrawal',
 		icon: BanknoteArrowDown,
 		isActive: false,
 	},
 	{
 		title: 'User Responses',
-		url: '/admin/user-responses',
+		url: '/dashboard/user-responses',
 		icon: MailCheck,
 		isActive: false,
 	},
@@ -243,15 +191,15 @@ const support: sidebarItem[] = [
 		items: [
 			{
 				title: 'All Supports',
-				url: '/admin/support',
+				url: '/dashboard/support',
 			},
 			{
 				title: 'Support Categories',
-				url: '/admin/support-category',
+				url: '/dashboard/support-category',
 			},
 			{
 				title: 'Problem Topics',
-				url: '/admin/support-sub-category',
+				url: '/dashboard/support-sub-category',
 			},
 		],
 	},
@@ -264,11 +212,11 @@ const advertise: sidebarItem[] = [
 		items: [
 			{
 				title: 'All Advertise',
-				url: '/admin/advertise',
+				url: '/dashboard/advertise',
 			},
 			{
 				title: 'Advertise Utilities',
-				url: '/admin/advertise-utilities',
+				url: '/dashboard/advertise-utilities',
 			},
 		],
 	},
@@ -281,27 +229,27 @@ const sass: sidebarItem[] = [
 		items: [
 			{
 				title: 'Active Coupons',
-				url: '/admin/coupon/active',
+				url: '/dashboard/coupon/active',
 			},
 			{
 				title: 'Request Coupons',
-				url: '/admin/coupon/request',
+				url: '/dashboard/coupon/request',
 			},
 			{
 				title: 'Rejected Coupons',
-				url: '/admin/coupon/rejected',
+				url: '/dashboard/coupon/rejected',
 			},
 		],
 	},
 	{
 		title: 'Membership',
-		url: '/admin/membership',
+		url: '/dashboard/membership',
 		icon: Star,
 		isActive: false,
 	},
 	{
 		title: 'Subscription',
-		url: '/admin/subscription',
+		url: '/dashboard/subscription',
 		icon: Sparkles,
 		isActive: false,
 	},

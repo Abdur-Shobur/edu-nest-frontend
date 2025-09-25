@@ -1,9 +1,7 @@
 import { Crumb } from '@/components/common/dynamic-breadcrumb';
 import { Header } from '@/components/common/header';
 import { PageWrap } from '@/components/common/page-wrap';
-import { Button } from '@/components/ui/button';
 import { CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Plus } from 'lucide-react';
 import { Metadata } from 'next';
 import DistributionsPage from './page.client';
 
@@ -28,12 +26,7 @@ export default function Page() {
 	return (
 		<>
 			{/* header of the page */}
-			<Header breadcrumbItems={breadcrumbItems}>
-				<Button size="lg" variant="brand">
-					<Plus className="h-4 w-4" />
-					<span className="hidden md:inline">Create Distribution</span>
-				</Button>
-			</Header>
+			<Header breadcrumbItems={breadcrumbItems}/> 
 
 			{/* page wrap */}
 			<PageWrap

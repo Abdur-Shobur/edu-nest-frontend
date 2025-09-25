@@ -54,7 +54,7 @@ export function IconModal({
 				<DialogHeader>
 					<DialogTitle>Icons</DialogTitle>
 					<DialogDescription>
-						Select Icon here. Click save when you're done.
+						Select Icon here. Click save when you&apos;re done.
 					</DialogDescription>
 					<Link
 						className="text-sm underline text-blue-600"

@@ -16,7 +16,7 @@ export const timeFormat = (date: string) => {
 export const timeDifference = (date1: Date | null, date2: Date | null) => {
 	if (date1 && date2) {
 		const diffTime = Math.abs(date2.getTime() - date1.getTime());
-		var daysDifference = diffTime / (1000 * 3600 * 24);
+		const daysDifference = diffTime / (1000 * 3600 * 24);
 		return Math.round(daysDifference + 1);
 	}
 	return null;

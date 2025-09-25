@@ -26,7 +26,7 @@ export default function IconSelect({
 	setValue,
 }: {
 	value: string;
-	setValue: Function;
+	setValue: any;
 }) {
 	const [load, setLoad] = React.useState(105);
 	const [query, setQuery] = React.useState('');

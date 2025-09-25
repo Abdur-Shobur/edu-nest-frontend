@@ -51,7 +51,7 @@ export default function About1() {
 							<p className="about-text">
 								There are many variations of passages available but the majority
 								have suffered alteration in some form by injected humour
-								randomised words which don't look even slightly believable. If
+								randomised words which don&apos;t look even slightly believable. If
 								you are going to use passage.
 							</p>
 							<div className="about-content">

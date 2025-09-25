@@ -8,7 +8,7 @@ export default function Video1() {
                             <span className="site-title-tagline"><i className="far fa-book-open-reader"></i> Latest
                                 Video</span>
                             <h2 className="site-title">
-                                Let's Check Our <span>Latest</span> Video
+                                Let&apos;s Check Our <span>Latest</span> Video
                             </h2>
                         </div>
                         <p className="about-text">

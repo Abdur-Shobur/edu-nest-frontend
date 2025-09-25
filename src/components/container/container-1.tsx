@@ -73,8 +73,8 @@ export function Container1({
 										<ul className="list-inside list-disc text-sm">
 											{error?.data?.error &&
 												typeof error?.data?.error === 'object' &&
-												Object.keys(error?.data?.error)?.map((key) => (
-													<li>
+												Object.keys(error?.data?.error)?.map((key,i) => (
+													<li key={i}>
 														{key} : {error?.data?.error[key]}
 													</li>
 												))}

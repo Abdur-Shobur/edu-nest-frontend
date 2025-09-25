@@ -31,6 +31,9 @@ export const apiSlice = createApi({
 		'BRAND',
 		'SETTINGS',
 		'MANAGER',
+		'CMS_BANNER',
+		'CMS_SECTIONS',
+		'CMS_LIST_ITEMS',
 	],
 	keepUnusedDataFor: 50000,
 });

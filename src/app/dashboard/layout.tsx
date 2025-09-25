@@ -1,6 +1,7 @@
 import { AppSidebarForAdmin } from '@/components/layout/admin-layout';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { Inter } from 'next/font/google';
+
 import '../globals.css';
 
 const inter = Inter({ subsets: ['vietnamese'] });

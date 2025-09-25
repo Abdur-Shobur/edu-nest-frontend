@@ -70,7 +70,7 @@ const Enroll1: React.FC = () => {
 									<p className="text-white">
 										There are many variations of passages available but the
 										majority have suffered alteration in some form by injected
-										humour randomised words which don't look even slightly
+										humour randomised words which don&apos;t look even slightly
 										believable. If you are going to use passage you need sure
 										there anything embarrassing first true generator on the
 										Internet.

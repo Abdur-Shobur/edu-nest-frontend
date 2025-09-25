@@ -12,7 +12,7 @@ const Cta1: React.FC = () => {
 								<p>
 									There are many variations of passages available but the
 									majority have suffered alteration in some form by injected
-									humour randomised words which don't look even slightly
+									humour randomised words which don&apos;t look even slightly
 									believable.
 								</p>
 								<div className="cta-btn">

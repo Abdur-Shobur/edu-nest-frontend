@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import RootLayout from './(front-end)/layout';
 
@@ -10,7 +11,7 @@ export default function NotFound() {
 						<div className="col-md-6 mx-auto">
 							<div className="error-wrapper">
 								<div className="error-img">
-									<img src="/assets/img/error/01.png" alt="404 Not Found" />
+									<Image src="/assets/img/error/01.png" alt="404 Not Found" />
 								</div>
 								<h2>Opos... Page Not Found!</h2>
 								<p>

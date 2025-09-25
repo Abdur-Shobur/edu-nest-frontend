@@ -11,7 +11,7 @@ const Testimonial1: React.FC = () => {
 								<i className="far fa-book-open-reader"></i> Testimonials
 							</span>
 							<h2 className="site-title text-white">
-								What Our Students <span>Say's</span>
+								What Our Students <span>Say&apos;s</span>
 							</h2>
 							<p className="text-white">
 								It is a long established fact that a reader will be distracted

@@ -7,7 +7,7 @@ export default function Faq1() {
 						<div className="faq-right">
 							<div className="site-heading mb-3">
 								<span className="site-title-tagline justify-content-start">
-									<i className="far fa-book-open-reader"></i> Faq's
+									<i className="far fa-book-open-reader"></i> Faq&apos;s
 								</span>
 								<h2 className="site-title my-3">
 									General <span>frequently</span> asked questions
@@ -16,7 +16,7 @@ export default function Faq1() {
 							<p className="mb-3">
 								There are many variations of passages of Lorem Ipsum available,
 								but the majority have suffered alteration in some form, by
-								injected humour, or randomised words which don't look even.
+								injected humour, or randomised words which don&apos;t look even.
 							</p>
 							<p className="mb-4">
 								Sed ut perspiciatis unde omnis iste natus error sit voluptatem
