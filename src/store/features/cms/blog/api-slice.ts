@@ -9,6 +9,7 @@ const api = apiSlice.injectEndpoints({
 		 **/
 		CMSBlogStore: builder.mutation<ResponseType<IBlog>, IBlogCreatePayload>({
 			query: (data) => {
+				console.log(data);
 				const formData = new FormData();
 				Object.entries(data).forEach(([key, value]) => {
 					if (value) {

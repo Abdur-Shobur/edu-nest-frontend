@@ -5,7 +5,7 @@
 	control={form.control}
 	name="language"
 	render={({ field }) => (
-		<SearchableSelect
+		<SearchableSelectFormItem
 			field={field}
 			label="Language"
 			options={languages}
@@ -19,7 +19,7 @@
 	control={form.control}
 	name="category_id"
 	render={({ field }) => (
-		<SearchableSelect
+		<SearchableSelectFormItem
 			field={field}
 			label="Select Category"
 			options={
@@ -102,6 +102,8 @@ export const SearchableSelectFormItem = ({
 			return () => clearTimeout(timer);
 		}
 	}, [error]);
+
+	console.log(field.value);
 
 	return (
 		<FormItem className="flex flex-col" ref={fieldRef}>

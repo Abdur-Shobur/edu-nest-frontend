@@ -1,6 +1,7 @@
 import { AppSidebarForAdmin } from '@/components/layout/admin-layout';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { Inter } from 'next/font/google';
+import 'react-quill-new/dist/quill.snow.css';
 
 import '../globals.css';
 
