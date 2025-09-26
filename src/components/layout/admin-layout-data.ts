@@ -103,6 +103,10 @@ const cms: sidebarItem[] = [
 				title: 'Banner',
 				url: '/dashboard/cms/banner',
 			},
+			{
+				title: 'Home Page',
+				url: '/dashboard/cms/home-page',
+			},
 		],
 	},
 	{

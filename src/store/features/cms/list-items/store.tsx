@@ -61,7 +61,7 @@ const schema = z.object({
 
 type ZodType = z.infer<typeof schema>;
 
-export function CMSListItemsStore() {
+export function CMSListItemsStore({ text }: { text?: string }) {
 	const [open, setOpen] = useState(false);
 
 	return (
@@ -69,13 +69,15 @@ export function CMSListItemsStore() {
 			<DialogTrigger asChild>
 				<Button size="lg" variant="brand">
 					<Plus className="h-4 w-4" />
-					<span className="hidden md:inline">Create CMSListItems</span>
+
+					{!text && <span className="hidden md:inline">Create List Items</span>}
+					{text && <span>{text}</span>}
 				</Button>
 			</DialogTrigger>
 
 			<DialogContent className="sm:max-w-[800px] overflow-y-scroll max-h-[90vh]">
 				<DialogHeader>
-					<DialogTitle>Create CMSListItems</DialogTitle>
+					<DialogTitle>Create List Items</DialogTitle>
 					<DialogDescription>Create a new category.</DialogDescription>
 				</DialogHeader>
 
@@ -267,7 +269,7 @@ const FORM = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
 						{isLoading && (
 							<LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
 						)}
-						{isLoading ? 'Creating...' : 'Create CMSListItems'}
+						{isLoading ? 'Creating...' : 'Create List Items'}
 					</Button>
 				</DialogFooter>
 			</form>

@@ -53,6 +53,8 @@ const schema = z.object({
 		.trim()
 		.min(1, 'Sections Key is required'),
 	color: z.string().trim().optional(),
+	link: z.string().trim().optional(),
+	linkText: z.string().trim().optional(),
 	title: z
 		.string({ error: 'Title is required' })
 		.trim()
@@ -60,7 +62,11 @@ const schema = z.object({
 	subtitle: z.string().trim().optional(),
 	description: z.string().trim().optional(),
 	order: z.number().min(0, 'Order must be a positive number').optional(),
-	status: z.enum([ICMSSectionsStatus.Active, ICMSSectionsStatus.Inactive]),
+	status: z.enum([
+		ICMSSectionsStatus.Active,
+		ICMSSectionsStatus.Inactive,
+		ICMSSectionsStatus.Trashed,
+	]),
 });
 
 type ZodType = z.infer<typeof schema>;
@@ -109,13 +115,12 @@ const FORM = ({
 			sectionsKey: editData.sectionsKey,
 			color: editData.color,
 			title: editData.title,
+			link: editData.link,
+			linkText: editData.linkText,
 			subtitle: editData.subtitle,
 			description: editData.description,
 			order: editData.order,
-			status:
-				editData.status === ICMSSectionsStatus.Trashed
-					? ICMSSectionsStatus.Inactive
-					: editData.status,
+			status: editData.status,
 		},
 	});
 
@@ -125,13 +130,12 @@ const FORM = ({
 			sectionsKey: editData.sectionsKey,
 			color: editData.color,
 			title: editData.title,
+			link: editData.link,
+			linkText: editData.linkText,
 			subtitle: editData.subtitle,
 			description: editData.description,
 			order: editData.order,
-			status:
-				editData.status === ICMSSectionsStatus.Trashed
-					? ICMSSectionsStatus.Inactive
-					: editData.status,
+			status: editData.status,
 		});
 	}, [editData]);
 
@@ -224,6 +228,35 @@ const FORM = ({
 							</FormItem>
 						)}
 					/>
+					{/* Link */}
+					<FormField
+						control={form.control}
+						name="link"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Link</FormLabel>
+								<FormControl>
+									<Input {...field} placeholder="Type section link..." />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+
+					{/* Link Text */}
+					<FormField
+						control={form.control}
+						name="linkText"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Link Text</FormLabel>
+								<FormControl>
+									<Input {...field} placeholder="Type section link text..." />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
 
 					{/* Order */}
 					<FormField
@@ -284,6 +317,9 @@ const FORM = ({
 										</SelectItem>
 										<SelectItem value={ICMSSectionsStatus.Inactive}>
 											Inactive
+										</SelectItem>
+										<SelectItem value={ICMSSectionsStatus.Trashed}>
+											Trashed
 										</SelectItem>
 									</SelectContent>
 								</Select>

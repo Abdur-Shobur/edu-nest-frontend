@@ -29,8 +29,9 @@ const PageClient = () => {
 			}
 		>
 			<Textarea
-				defaultValue={`export enum Role {\n${data?.data
-					?.map(
+				defaultValue={`export enum Role {\n${[...(data?.data || [])]
+					.sort((a, b) => a.permissionKey.localeCompare(b.permissionKey))
+					.map(
 						(item) =>
 							`  ${item.permissionKey.toUpperCase()} = '${item.permissionKey}'`
 					)

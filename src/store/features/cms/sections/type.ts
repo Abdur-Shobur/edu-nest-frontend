@@ -8,6 +8,8 @@ export interface ICMSSections {
 	readonly subtitle: string;
 	readonly description: string;
 	readonly order: number;
+	readonly link: string;
+	readonly linkText: string;
 	readonly createdAt: string;
 	readonly updatedAt: string;
 }

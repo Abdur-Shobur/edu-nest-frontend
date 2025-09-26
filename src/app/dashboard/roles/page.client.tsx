@@ -56,7 +56,7 @@ const PageClient = () => {
 
 						<Link
 							href="/dashboard/roles/permissions"
-							className="text-primary font-semibold text-base"
+							className="text-blue-500 font-semibold text-base underline"
 						>
 							Go to Roles Keys
 						</Link>

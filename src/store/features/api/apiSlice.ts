@@ -37,6 +37,7 @@ export const apiSlice = createApi({
 		'CMS_BLOG',
 		'CMS_BLOG_CATEGORY',
 		'CMS_TAG',
+		'CMS_PAGE_SECTIONS',
 	],
 	keepUnusedDataFor: 50000,
 });

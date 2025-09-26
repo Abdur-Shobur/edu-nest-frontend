@@ -90,8 +90,9 @@ const api = apiSlice.injectEndpoints({
 		>({
 			query: ({ page = 1, limit = 10, status = '', search = '' }) => {
 				if (
-					status === 'active' ||
-					status === 'inactive' ||
+					status === 'published' ||
+					status === 'unpublished' ||
+					status === 'draft' ||
 					status === 'trashed'
 				) {
 					status = status;

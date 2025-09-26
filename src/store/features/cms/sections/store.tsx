@@ -50,6 +50,8 @@ const schema = z.object({
 		.trim()
 		.min(1, 'Sections Key is required'),
 	color: z.string().trim().optional(),
+	link: z.string().trim().optional(),
+	linkText: z.string().trim().optional(),
 	title: z
 		.string({ error: 'Title is required' })
 		.trim()
@@ -62,7 +64,7 @@ const schema = z.object({
 
 type ZodType = z.infer<typeof schema>;
 
-export function CMSSectionsStore() {
+export function CMSSectionsStore({ text }: { text?: string }) {
 	const [open, setOpen] = useState(false);
 
 	return (
@@ -70,13 +72,14 @@ export function CMSSectionsStore() {
 			<DialogTrigger asChild>
 				<Button size="lg" variant="brand">
 					<Plus className="h-4 w-4" />
-					<span className="hidden md:inline">Create CMSSections</span>
+					{!text && <span className="hidden md:inline">Create Sections</span>}
+					{text && <span>{text}</span>}
 				</Button>
 			</DialogTrigger>
 
 			<DialogContent className="sm:max-w-[800px] overflow-y-scroll max-h-[90vh]">
 				<DialogHeader>
-					<DialogTitle>Create CMSSections</DialogTitle>
+					<DialogTitle>Create Sections</DialogTitle>
 					<DialogDescription>Create a new category.</DialogDescription>
 				</DialogHeader>
 
@@ -96,6 +99,8 @@ const FORM = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
 			sectionsKey: '',
 			color: '',
 			title: '',
+			link: '',
+			linkText: '',
 			subtitle: '',
 			description: '',
 			order: 0,
@@ -209,6 +214,35 @@ const FORM = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
 							</FormItem>
 						)}
 					/>
+					{/* Link */}
+					<FormField
+						control={form.control}
+						name="link"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Link</FormLabel>
+								<FormControl>
+									<Input {...field} placeholder="Type section link..." />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+
+					{/* Link Text */}
+					<FormField
+						control={form.control}
+						name="linkText"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Link Text</FormLabel>
+								<FormControl>
+									<Input {...field} placeholder="Type section link text..." />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
 
 					{/* Order */}
 					<FormField
@@ -283,7 +317,7 @@ const FORM = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
 						{isLoading && (
 							<LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
 						)}
-						{isLoading ? 'Creating...' : 'Create CMSSections'}
+						{isLoading ? 'Creating...' : 'Create Sections'}
 					</Button>
 				</DialogFooter>
 			</form>

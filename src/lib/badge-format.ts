@@ -10,14 +10,17 @@ export const badgeFormat = (status: string | number): Badge => {
 			return 'secondary';
 
 		case 'public':
+		case 'draft':
 			return 'outline';
 
 		case 'active':
 		case 'privet':
+		case 'published':
 			return 'success';
 
 		case 'inactive':
 		case 'pending':
+		case 'unpublished':
 			return 'warning';
 
 		case 'sd':

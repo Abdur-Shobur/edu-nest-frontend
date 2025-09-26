@@ -32,7 +32,7 @@ export default function Toolbar({
 				<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
 				<Input
 					defaultValue={params?.search ?? ''}
-					placeholder="Search..."
+					placeholder="Search by name & key..."
 					onChange={(e) => debounced(e.target.value)}
 					aria-label="Search"
 					className="pl-10 bg-white border-gray-200 focus:border-gray-300 focus:ring-gray-300"
@@ -46,9 +46,8 @@ export default function Toolbar({
 				</SelectTrigger>
 				<SelectContent>
 					<SelectItem value="all">All Status</SelectItem>
-					<SelectItem value="published">Published</SelectItem>
-					<SelectItem value="unpublished">Unpublished</SelectItem>
-					<SelectItem value="draft">Draft</SelectItem>
+					<SelectItem value="active">Active</SelectItem>
+					<SelectItem value="inactive">Inactive</SelectItem>
 					<SelectItem value="trashed">Trashed</SelectItem>
 				</SelectContent>
 			</Select>
