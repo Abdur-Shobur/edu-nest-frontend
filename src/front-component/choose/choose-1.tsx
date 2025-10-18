@@ -6,7 +6,7 @@ const Choose1: React.FC = () => {
 			<div className="container">
 				<div className="row align-items-center">
 					<div className="col-lg-6">
-						<div className="choose-content wow fadeInUp" data-wow-delay=".25s">
+						<div className="choose-content  ">
 							<div className="choose-content-info">
 								<div className="site-heading mb-0">
 									<span className="site-title-tagline">
@@ -76,7 +76,7 @@ const Choose1: React.FC = () => {
 						</div>
 					</div>
 					<div className="col-lg-6">
-						<div className="choose-img wow fadeInRight" data-wow-delay=".25s">
+						<div className="choose-img wow fadeInRight">
 							<img src="assets/img/choose/01.jpg" alt="" />
 						</div>
 					</div>

@@ -14,7 +14,7 @@ export async function middleware(request: NextRequest) {
 	const isAuthenticated = Boolean(token?.accessToken);
 
 	const isAuthPage =
-		pathname.startsWith('/(front-end)/auth') ||
+		pathname.startsWith('/auth') ||
 		pathname === '/login' ||
 		pathname === '/auth' ||
 		pathname.startsWith('/auth');
@@ -28,12 +28,12 @@ export async function middleware(request: NextRequest) {
 	// If visiting dashboard without auth, redirect to auth page
 	if (isDashboard && !isAuthenticated) {
 		// Send them to the public auth page
-		return NextResponse.redirect(new URL('/(front-end)/auth', origin));
+		return NextResponse.redirect(new URL('/auth', origin));
 	}
 
 	return NextResponse.next();
 }
 
 export const config = {
-	matcher: ['/dashboard/:path*', '/auth/:path*', '/(front-end)/auth', '/login'],
+	matcher: ['/dashboard/:path*', '/auth/:path*', '/auth', '/login'],
 };

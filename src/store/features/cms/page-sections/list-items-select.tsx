@@ -1,8 +1,10 @@
 'use client';
 
 import { Loader5 } from '@/components/loader';
+import { env } from '@/lib';
 import { cn } from '@/lib/utils';
-import { CircleCheck, List } from 'lucide-react';
+import { CircleCheck } from 'lucide-react';
+import Image from 'next/image';
 import { Checkbox as CheckboxPrimitive } from 'radix-ui';
 import { useFormContext } from 'react-hook-form';
 import { useCMSListItemsQuery } from '../list-items';
@@ -57,7 +59,16 @@ const PageItemsSelect = () => {
 								'relative ring-[1px] ring-border rounded-lg px-4 py-3 text-start text-muted-foreground data-[state=checked]:ring-2 data-[state=checked]:ring-primary data-[state=checked]:text-primary cursor-pointer hover:ring-primary/50 transition-all'
 							)}
 						>
-							<List className="mb-3 text-muted-foreground" />
+							{item.image && (
+								<div className="flex items-center gap-2">
+									<Image
+										src={`${env.baseAPI}/${item.image}`}
+										alt={item.title}
+										width={50}
+										height={50}
+									/>
+								</div>
+							)}
 							<span className="font-medium tracking-tight">{item.title}</span>
 							{item.subtitle && (
 								<p className="text-xs text-muted-foreground mt-1">

@@ -1698,7 +1698,7 @@ label {
 }
 
 .about-img .img-3 {
-	border-radius: 0 80px 80px 80px;
+	border-radius: 80px;
 }
 
 .about-experience {
@@ -2648,7 +2648,7 @@ label {
 
 .counter-area {
 	position: relative;
-	background-image: url(../img/counter/01.jpg);
+	background-image: var(--theme-color);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
@@ -2743,7 +2743,7 @@ label {
 
 .cta-area {
 	position: relative;
-	background-image: url(../img/cta/01.jpg);
+	background-color: var(--theme-color);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
@@ -2831,6 +2831,7 @@ label {
 .event-img img {
 	border-radius: 40px 40px 40px 0;
 	box-shadow: var(--box-shadow);
+	width: 100%;
 }
 
 .event-item:hover .event-img img {

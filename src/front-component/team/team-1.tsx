@@ -20,7 +20,7 @@ export default function Team1() {
 				</div>
 				<div className="row">
 					<div className="col-md-6 col-lg-3">
-						<div className="team-item wow fadeInUp" data-wow-delay=".25s">
+						<div className="team-item  ">
 							<div className="team-img">
 								<img src="assets/img/team/01.jpg" alt="thumb" />
 							</div>
@@ -52,7 +52,7 @@ export default function Team1() {
 						</div>
 					</div>
 					<div className="col-md-6 col-lg-3">
-						<div className="team-item wow fadeInUp" data-wow-delay=".50s">
+						<div className="team-item  ">
 							<div className="team-img">
 								<img src="assets/img/team/02.jpg" alt="thumb" />
 							</div>
@@ -84,7 +84,7 @@ export default function Team1() {
 						</div>
 					</div>
 					<div className="col-md-6 col-lg-3">
-						<div className="team-item wow fadeInUp" data-wow-delay=".75s">
+						<div className="team-item  ">
 							<div className="team-img">
 								<img src="assets/img/team/03.jpg" alt="thumb" />
 							</div>
@@ -116,7 +116,7 @@ export default function Team1() {
 						</div>
 					</div>
 					<div className="col-md-6 col-lg-3">
-						<div className="team-item wow fadeInUp" data-wow-delay="1s">
+						<div className="team-item  ">
 							<div className="team-img">
 								<img src="assets/img/team/04.jpg" alt="thumb" />
 							</div>

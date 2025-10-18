@@ -22,7 +22,7 @@ const Blog1: React.FC = () => {
 				</div>
 				<div className="row">
 					<div className="col-md-6 col-lg-4">
-						<div className="blog-item wow fadeInUp" data-wow-delay=".25s">
+						<div className="blog-item  ">
 							<div className="blog-date">
 								<i className="fal fa-calendar-alt"></i> June 18, 2024
 							</div>
@@ -56,7 +56,7 @@ const Blog1: React.FC = () => {
 						</div>
 					</div>
 					<div className="col-md-6 col-lg-4">
-						<div className="blog-item wow fadeInUp" data-wow-delay=".50s">
+						<div className="blog-item  ">
 							<div className="blog-date">
 								<i className="fal fa-calendar-alt"></i> June 18, 2024
 							</div>
@@ -90,7 +90,7 @@ const Blog1: React.FC = () => {
 						</div>
 					</div>
 					<div className="col-md-6 col-lg-4">
-						<div className="blog-item wow fadeInUp" data-wow-delay=".75s">
+						<div className="blog-item  ">
 							<div className="blog-date">
 								<i className="fal fa-calendar-alt"></i> June 18, 2024
 							</div>

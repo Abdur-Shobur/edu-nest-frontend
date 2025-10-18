@@ -20,7 +20,7 @@ const Testimonial1: React.FC = () => {
 						</div>
 					</div>
 				</div>
-				<div className="testimonial-slider owl-carousel owl-theme">
+				<div className="testimonial-slider    ">
 					<div className="testimonial-item">
 						<div className="testimonial-rate">
 							<i className="fas fa-star"></i>

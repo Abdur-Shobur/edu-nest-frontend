@@ -20,7 +20,7 @@ const Department1: React.FC = () => {
 						</div>
 					</div>
 				</div>
-				<div className="department-slider owl-carousel owl-theme">
+				<div className="department-slider    ">
 					<div className="department-item">
 						<div className="department-icon">
 							<img src="assets/img/icon/monitor.svg" alt="" />

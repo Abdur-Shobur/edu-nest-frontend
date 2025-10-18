@@ -20,7 +20,7 @@ const Events1: React.FC = () => {
 						</div>
 					</div>
 				</div>
-				<div className="event-slider owl-carousel owl-theme">
+				<div className="event-slider    ">
 					<div className="event-item">
 						<div className="event-location">
 							<span>

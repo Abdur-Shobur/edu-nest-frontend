@@ -23,7 +23,7 @@ const Department1: React.FC = () => {
 				</div>
 				<div className="row">
 					<div className="col-lg-3">
-						<div className="department-item wow fadeInUp" data-wow-delay=".25s">
+						<div className="department-item  ">
 							<div className="department-icon">
 								<img src="assets/img/icon/monitor.svg" alt="" />
 							</div>
@@ -44,7 +44,7 @@ const Department1: React.FC = () => {
 						</div>
 					</div>
 					<div className="col-lg-3">
-						<div className="department-item wow fadeInUp" data-wow-delay=".50s">
+						<div className="department-item  ">
 							<div className="department-icon">
 								<img src="assets/img/icon/law.svg" alt="" />
 							</div>
@@ -65,7 +65,7 @@ const Department1: React.FC = () => {
 						</div>
 					</div>
 					<div className="col-lg-3">
-						<div className="department-item wow fadeInUp" data-wow-delay=".75s">
+						<div className="department-item  ">
 							<div className="department-icon">
 								<img src="assets/img/icon/data.svg" alt="" />
 							</div>
@@ -86,7 +86,7 @@ const Department1: React.FC = () => {
 						</div>
 					</div>
 					<div className="col-lg-3">
-						<div className="department-item wow fadeInUp" data-wow-delay="1s">
+						<div className="department-item  ">
 							<div className="department-icon">
 								<img src="assets/img/icon/health.svg" alt="" />
 							</div>
@@ -107,7 +107,7 @@ const Department1: React.FC = () => {
 						</div>
 					</div>
 					<div className="col-lg-3">
-						<div className="department-item wow fadeInUp" data-wow-delay=".25s">
+						<div className="department-item  ">
 							<div className="department-icon">
 								<img src="assets/img/icon/art.svg" alt="" />
 							</div>
@@ -128,7 +128,7 @@ const Department1: React.FC = () => {
 						</div>
 					</div>
 					<div className="col-lg-3">
-						<div className="department-item wow fadeInUp" data-wow-delay=".50s">
+						<div className="department-item  ">
 							<div className="department-icon">
 								<img src="assets/img/icon/information.svg" alt="" />
 							</div>
@@ -149,7 +149,7 @@ const Department1: React.FC = () => {
 						</div>
 					</div>
 					<div className="col-lg-3">
-						<div className="department-item wow fadeInUp" data-wow-delay=".75s">
+						<div className="department-item  ">
 							<div className="department-icon">
 								<img src="assets/img/icon/acting.svg" alt="" />
 							</div>
@@ -170,7 +170,7 @@ const Department1: React.FC = () => {
 						</div>
 					</div>
 					<div className="col-lg-3">
-						<div className="department-item wow fadeInUp" data-wow-delay="1s">
+						<div className="department-item  ">
 							<div className="department-icon">
 								<img src="assets/img/icon/human.svg" alt="" />
 							</div>

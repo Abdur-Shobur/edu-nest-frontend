@@ -20,7 +20,7 @@ export default function Course1() {
 				</div>
 				<div className="row">
 					<div className="col-md-6 col-lg-4">
-						<div className="course-item wow fadeInUp" data-wow-delay=".25s">
+						<div className="course-item  ">
 							<div className="course-img">
 								<span className="course-tag">
 									<i className="far fa-bookmark"></i> Drama
@@ -66,7 +66,7 @@ export default function Course1() {
 						</div>
 					</div>
 					<div className="col-md-6 col-lg-4">
-						<div className="course-item wow fadeInUp" data-wow-delay=".50s">
+						<div className="course-item  ">
 							<div className="course-img">
 								<span className="course-tag">
 									<i className="far fa-bookmark"></i> Design
@@ -112,7 +112,7 @@ export default function Course1() {
 						</div>
 					</div>
 					<div className="col-md-6 col-lg-4">
-						<div className="course-item wow fadeInUp" data-wow-delay=".75s">
+						<div className="course-item  ">
 							<div className="course-img">
 								<span className="course-tag">
 									<i className="far fa-bookmark"></i> Science
@@ -158,7 +158,7 @@ export default function Course1() {
 						</div>
 					</div>
 					<div className="col-md-6 col-lg-4">
-						<div className="course-item wow fadeInUp" data-wow-delay=".25s">
+						<div className="course-item  ">
 							<div className="course-img">
 								<span className="course-tag">
 									<i className="far fa-bookmark"></i> Science
@@ -204,7 +204,7 @@ export default function Course1() {
 						</div>
 					</div>
 					<div className="col-md-6 col-lg-4">
-						<div className="course-item wow fadeInUp" data-wow-delay=".50s">
+						<div className="course-item  ">
 							<div className="course-img">
 								<span className="course-tag">
 									<i className="far fa-bookmark"></i> Health
@@ -250,7 +250,7 @@ export default function Course1() {
 						</div>
 					</div>
 					<div className="col-md-6 col-lg-4">
-						<div className="course-item wow fadeInUp" data-wow-delay=".75s">
+						<div className="course-item  ">
 							<div className="course-img">
 								<span className="course-tag">
 									<i className="far fa-bookmark"></i> Finance

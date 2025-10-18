@@ -1,8 +1,11 @@
 'use client';
 
 import { Loader5 } from '@/components/loader';
+import { Badge } from '@/components/ui/badge';
+import { badgeFormat, env } from '@/lib';
 import { cn } from '@/lib/utils';
-import { CircleCheck, Layout } from 'lucide-react';
+import { CircleCheck } from 'lucide-react';
+import Image from 'next/image';
 import { RadioGroup as RadioGroupPrimitive } from 'radix-ui';
 import { useFormContext } from 'react-hook-form';
 import { useCMSSectionsQuery } from '../sections';
@@ -29,7 +32,7 @@ const PageSectionsSelect = () => {
 		<div className="space-y-4">
 			<div className="flex items-center justify-between gap-4">
 				<div>
-					<h3 className="text-lg font-medium">Select Section</h3>
+					<h3 className="text-lg font-medium">Select Section (optional)</h3>
 					<p className="text-sm text-muted-foreground">
 						Choose a section for this page section
 					</p>
@@ -50,13 +53,38 @@ const PageSectionsSelect = () => {
 					>
 						<CircleCheck className="absolute top-2 right-2 h-6 w-6 text-primary fill-primary stroke-white group-data-[state=unchecked]:hidden" />
 
-						<Layout className="mb-2.5 text-muted-foreground" />
-						<span className="font-semibold tracking-tight">
+						<span className="font-semibold tracking-tight me-2">
 							{section.title}
 						</span>
+						<Badge variant={badgeFormat(section.status)}>
+							{section.sectionsKey}
+						</Badge>
 						<p className="text-xs text-muted-foreground">{section.subtitle}</p>
 						{section.description && (
 							<p className="text-xs mt-1 line-clamp-2">{section.description}</p>
+						)}
+						{section.image && (
+							<div className="flex items-center gap-2">
+								<Image
+									src={`${env.baseAPI}/${section.image}`}
+									alt={section.title}
+									width={100}
+									height={100}
+								/>
+							</div>
+						)}
+						{section.link && (
+							<p className="text-xs text-muted-foreground">{section.link}</p>
+						)}
+						{section.linkText && (
+							<p className="text-xs text-muted-foreground">
+								{section.linkText}
+							</p>
+						)}
+						{section.color && (
+							<p className="text-xs text-muted-foreground">
+								Color: {section.color}
+							</p>
 						)}
 					</RadioGroupPrimitive.Item>
 				))}

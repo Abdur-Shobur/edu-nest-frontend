@@ -12,14 +12,7 @@ import { badgeFormat } from '@/lib';
 
 import { Button } from '@/components/ui/button';
 
-import {
-	Calendar,
-	Ellipsis,
-	Hash,
-	Layout,
-	List,
-	LoaderCircle,
-} from 'lucide-react';
+import { Ellipsis, Layout, LoaderCircle } from 'lucide-react';
 import { ApiDeleteDropdownHandler } from '../../api/api-delete-dropdown-handler';
 import { ApiStatusDropdownHandler } from '../../api/api-status-dropdown-handler';
 import {
@@ -47,7 +40,7 @@ export const CMSPageSectionsPage = ({
 					{data?.map((item, i) => (
 						<Card
 							key={item.id}
-							className="relative group hover:shadow-md transition-shadow"
+							className="relative group hover:shadow-md transition-shadow gap-2"
 						>
 							<CardHeader className="pb-3">
 								<div className="flex items-start justify-between">
@@ -56,7 +49,7 @@ export const CMSPageSectionsPage = ({
 											{item.pageSectionsName}
 										</h3>
 										<code className="bg-muted px-2 py-1 rounded text-xs font-mono">
-											{item.pageSectionsKey}
+											key: {item.pageSectionsKey}
 										</code>
 									</div>
 									<DropDownAction item={item} />
@@ -65,7 +58,7 @@ export const CMSPageSectionsPage = ({
 							<CardContent className="space-y-3">
 								{/* Page For */}
 								<div className="flex items-center gap-2">
-									<Calendar className="h-4 w-4 text-muted-foreground" />
+									Page For:
 									<Badge variant="outline" className="capitalize">
 										{item.pageIsFor}
 									</Badge>
@@ -73,7 +66,7 @@ export const CMSPageSectionsPage = ({
 
 								{/* Section */}
 								<div className="flex items-center gap-2">
-									<Layout className="h-4 w-4 text-muted-foreground" />
+									Section:
 									<span className="text-sm text-muted-foreground">
 										{item.section?.title || 'No section'}
 									</span>
@@ -81,7 +74,7 @@ export const CMSPageSectionsPage = ({
 
 								{/* Order */}
 								<div className="flex items-center gap-2">
-									<Hash className="h-4 w-4 text-muted-foreground" />
+									Order:
 									<span className="text-sm text-muted-foreground">
 										Order: {item.order}
 									</span>
@@ -90,7 +83,7 @@ export const CMSPageSectionsPage = ({
 								{/* List Items Count */}
 								{item.listItems && item.listItems.length > 0 && (
 									<div className="flex items-center gap-2">
-										<List className="h-4 w-4 text-muted-foreground" />
+										List Items:
 										<span className="text-sm text-muted-foreground">
 											{item.listItems.length} list item
 											{item.listItems.length !== 1 ? 's' : ''}

@@ -56,8 +56,8 @@ const schema = z.object({
 		ICMSPageSectionsStatus.Inactive,
 		ICMSPageSectionsStatus.Trashed,
 	]),
-	sectionId: z.number().min(1, 'Select a section'),
-	listItemIds: z.array(z.number()).min(1, 'Select at least one list item'),
+	sectionId: z.number().optional(),
+	listItemIds: z.array(z.number()).optional(),
 	order: z.number().min(0, 'Order must be a positive number').optional(),
 });
 
@@ -101,7 +101,7 @@ const FORM = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
 			pageIsFor: ICMSPageIsFor.Home,
 			pageDesignLayout: ICMSPageDesignLayout.Layout1,
 			status: ICMSPageSectionsStatus.Active,
-			sectionId: 0,
+			sectionId: undefined,
 			listItemIds: [],
 			order: 0,
 		},
@@ -113,7 +113,6 @@ const FORM = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
 				try {
 					const response = await store({
 						...data,
-						pageIsFor: data.pageIsFor as ICMSPageIsFor,
 					}).unwrap();
 					if (response.status) {
 						toast.success(response.message || 'Updated successfully');

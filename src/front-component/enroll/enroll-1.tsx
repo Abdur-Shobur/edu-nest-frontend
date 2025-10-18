@@ -7,7 +7,7 @@ const Enroll1: React.FC = () => {
 				<div className="col-lg-12">
 					<div className="row g-5 align-items-center">
 						<div className="col-lg-6">
-							<div className="enroll-left wow fadeInLeft" data-wow-delay=".25s">
+							<div className="enroll-left wow fadeInLeft">
 								<div className="enroll-form">
 									<div className="enroll-form-header">
 										<h3>Start Your Enrollment</h3>
@@ -57,7 +57,7 @@ const Enroll1: React.FC = () => {
 							</div>
 						</div>
 						<div className="col-lg-6">
-							<div className="enroll-right wow fadeInUp" data-wow-delay=".25s">
+							<div className="enroll-right  ">
 								<div className="skill-content">
 									<div className="site-heading mb-3">
 										<span className="site-title-tagline">

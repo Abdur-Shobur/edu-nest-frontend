@@ -6,7 +6,7 @@ export interface ICMSPageSections {
 	readonly pageSectionsName: string;
 	readonly pageSectionsKey: string;
 	readonly pageIsFor: ICMSPageIsFor;
-	readonly pageDesignLayout: string;
+	readonly pageDesignLayout: ICMSPageDesignLayout;
 	readonly status: ICMSPageSectionsStatus;
 	readonly section: ICMSSections;
 	readonly listItems: ICMSListItems[];
@@ -35,4 +35,7 @@ export enum ICMSPageDesignLayout {
 	Layout1 = 'layout1',
 	Layout2 = 'layout2',
 	Layout3 = 'layout3',
+	Layout4 = 'layout4',
+	Layout5 = 'layout5',
+	Layout6 = 'layout6',
 }

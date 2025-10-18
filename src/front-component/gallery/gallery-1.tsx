@@ -21,7 +21,7 @@ const Gallery1: React.FC = () => {
 					</div>
 				</div>
 				<div className="row popup-gallery">
-					<div className="col-md-4 wow fadeInUp" data-wow-delay=".25s">
+					<div className="col-md-4  ">
 						<div className="gallery-item">
 							<div className="gallery-img">
 								<img src="assets/img/gallery/01.jpg" alt="" />
@@ -49,7 +49,7 @@ const Gallery1: React.FC = () => {
 							</div>
 						</div>
 					</div>
-					<div className="col-md-4 wow fadeInUp" data-wow-delay=".50s">
+					<div className="col-md-4  ">
 						<div className="gallery-item">
 							<div className="gallery-img">
 								<img src="assets/img/gallery/03.jpg" alt="" />
@@ -77,7 +77,7 @@ const Gallery1: React.FC = () => {
 							</div>
 						</div>
 					</div>
-					<div className="col-md-4 wow fadeInUp" data-wow-delay=".75s">
+					<div className="col-md-4  ">
 						<div className="gallery-item">
 							<div className="gallery-img">
 								<img src="assets/img/gallery/05.jpg" alt="" />

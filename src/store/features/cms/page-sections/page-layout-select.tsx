@@ -1,7 +1,8 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { CircleCheck, Layout } from 'lucide-react';
+import { CircleCheck } from 'lucide-react';
+import Image from 'next/image';
 import { RadioGroup as RadioGroupPrimitive } from 'radix-ui';
 import { useFormContext } from 'react-hook-form';
 import { ICMSPageDesignLayout } from './type';
@@ -13,18 +14,42 @@ const PageLayoutSelect = () => {
 			name: 'Layout 1',
 			value: ICMSPageDesignLayout.Layout1,
 			description: 'Layout 1 description',
+			image: '/assets/img/layout/1.webp',
 		},
 		{
 			id: 2,
 			name: 'Layout 2',
 			value: ICMSPageDesignLayout.Layout2,
 			description: 'Layout 2 description',
+			image: '/assets/img/layout/2.webp',
 		},
 		{
 			id: 3,
 			name: 'Layout 3',
 			value: ICMSPageDesignLayout.Layout3,
 			description: 'Layout 3 description',
+			image: '/assets/img/layout/3.webp',
+		},
+		{
+			id: 4,
+			name: 'Layout 4',
+			value: ICMSPageDesignLayout.Layout4,
+			description: 'Layout 4 description',
+			image: '/assets/img/layout/4.webp',
+		},
+		{
+			id: 5,
+			name: 'Layout 5',
+			value: ICMSPageDesignLayout.Layout5,
+			description: 'Layout 5 description',
+			image: '/assets/img/layout/5.webp',
+		},
+		{
+			id: 6,
+			name: 'Layout 6',
+			value: ICMSPageDesignLayout.Layout6,
+			description: 'Layout 6 description',
+			image: '/assets/img/layout/6.webp',
 		},
 	];
 
@@ -60,12 +85,20 @@ const PageLayoutSelect = () => {
 					>
 						<CircleCheck className="absolute top-2 right-2 h-6 w-6 text-primary fill-primary stroke-white group-data-[state=unchecked]:hidden" />
 
-						<Layout className="mb-2.5 text-muted-foreground" />
 						<span className="font-semibold tracking-tight">{section.name}</span>
-						<p className="text-xs text-muted-foreground">{section.value}</p>
-						{section.value && (
-							<p className="text-xs mt-1 line-clamp-2">{section.value}</p>
-						)}
+						<div>
+							{section.image && (
+								<div className="flex items-center gap-2">
+									<Image
+										src={section.image}
+										alt={section.name}
+										width={1000}
+										className="object-contain w-full"
+										height={20}
+									/>
+								</div>
+							)}
+						</div>
 					</RadioGroupPrimitive.Item>
 				))}
 			</RadioGroupPrimitive.Root>
